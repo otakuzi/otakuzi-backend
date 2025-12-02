@@ -1,0 +1,51 @@
+services:
+  mysql:
+    image: mysql:8.0-oracle
+    container_name: otakuzi-mysql-local
+    platform: linux/arm64
+    environment:
+      MYSQL_ROOT_PASSWORD: 5xkznwl@@
+      MYSQL_DATABASE: otakuzi
+      MYSQL_USER: otakuzi_user
+      MYSQL_PASSWORD: otakuji_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - otakuzi-network
+    healthcheck:  # 👈 헬스체크 추가
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: otakuzi-backend-local
+    platform: linux/arm64
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/otakuzi?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: otakuzi_user
+      SPRING_DATASOURCE_PASSWORD: otakuji_pass
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy  # 👈 MySQL이 건강해질 때까지 대기
+    networks:
+      - otakuzi-network
+    restart: on-failure  # 👈 실패 시 재시도
+
+volumes:
+  mysql_data:
+
+networks:
+  otakuzi-network:
+    driver: bridge

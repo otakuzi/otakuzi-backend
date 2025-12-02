@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    # Docker Compose 환경에서는 환경변수로 받음
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/otakuzi?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:5xkznwl@@}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+# 로그 레벨 (개발 중에는 상세하게)
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.otakuji: DEBUG
