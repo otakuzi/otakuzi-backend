@@ -1,0 +1,45 @@
+﻿name: Deploy to AWS EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+      
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build -x test
+      
+      - name: Copy JAR to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: 51.20.93.193
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "build/libs/*.jar"
+          target: "/home/ec2-user/app"
+      
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: 51.20.93.193
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ec2-user/app
+            sudo systemctl stop otakuji-backend
+            sudo mv build/libs/*.jar otakuji-backend.jar
+            sudo systemctl start otakuji-backend

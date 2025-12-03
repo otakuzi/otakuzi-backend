@@ -1,4 +1,4 @@
-# Multi-stage build로 이미지 크기 최적화
+﻿# Multi-stage build로 이미지 크기 최적화
 FROM gradle:8.5-jdk17 AS build
 
 # 작업 디렉토리를 /app으로 설정

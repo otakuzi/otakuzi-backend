@@ -1,4 +1,4 @@
-services:
+﻿services:
   mysql:
     image: mysql:8.0-oracle
     container_name: otakuzi-mysql-local

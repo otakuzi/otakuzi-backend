@@ -1,24 +1,21 @@
-spring:
-  # MySQL 운영 설정 (환경변수로 주입)
+﻿spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    # AWS RDS 운영용 엔드포인트 (명시적으로)
+    url: jdbc:mysql://otakuji.c144q40k464s.eu-north-1.rds.amazonaws.com:3306/otakuji?useSSL=true&requireSSL=true&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  # JPA 운영 설정 (절대 테이블 자동 생성 금지!)
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: validate  # ✅ 이건 그대로 OK
     show-sql: false
 
-# 로그 레벨 (에러만)
 logging:
   level:
     root: ERROR
     com.otakuji: INFO
 
-# Actuator 보안 설정
 management:
   endpoint:
     health:
