@@ -10,5 +10,5 @@ import java.util.List;
 public interface ShopRepository extends JpaRepository<Shop, Long> {
     
     // 완료 여부로 조회
-    List<Shop> findByNameContaining(String keyword);
+    List<Shop> findByNameContaining(String placeName);
 }
