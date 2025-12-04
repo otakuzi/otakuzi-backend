@@ -8,7 +8,7 @@
 
   jpa:
     hibernate:
-      ddl-auto: validate  # ✅ 이건 그대로 OK
+      ddl-auto: update  # ✅ 이건 그대로 OK
     show-sql: false
 
 logging:
