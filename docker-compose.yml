@@ -7,7 +7,7 @@
       MYSQL_ROOT_PASSWORD: 5xkznwl@@
       MYSQL_DATABASE: otakuzi
       MYSQL_USER: otakuzi_user
-      MYSQL_PASSWORD: otakuji_pass
+      MYSQL_PASSWORD: otakuzi_pass
     ports:
       - "3306:3306"
     volumes:
@@ -33,7 +33,7 @@
       SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/otakuzi?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: otakuzi_user
-      SPRING_DATASOURCE_PASSWORD: otakuji_pass
+      SPRING_DATASOURCE_PASSWORD: otakuzi_pass
     ports:
       - "8080:8080"
     depends_on:

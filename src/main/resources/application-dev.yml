@@ -1,7 +1,7 @@
 ﻿spring:
   datasource:
     # AWS RDS 개발용 엔드포인트
-    url: jdbc:mysql://otakuji.c144q40k464s.eu-north-1.rds.amazonaws.com:3306/otakuji?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://otakuzi.c144q40k464s.eu-north-1.rds.amazonaws.com:3306/otakuzi?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:admin}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,4 +19,4 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.otakuji: DEBUG
+    com.otakuzi: DEBUG

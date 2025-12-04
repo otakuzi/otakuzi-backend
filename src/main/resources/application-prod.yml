@@ -1,7 +1,7 @@
 ﻿spring:
   datasource:
     # AWS RDS 운영용 엔드포인트 (명시적으로)
-    url: jdbc:mysql://otakuji.c144q40k464s.eu-north-1.rds.amazonaws.com:3306/otakuji?useSSL=true&requireSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://otakuzi.c144q40k464s.eu-north-1.rds.amazonaws.com:3306/otakuzi?useSSL=true&requireSSL=true&serverTimezone=UTC
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,7 +14,7 @@
 logging:
   level:
     root: ERROR
-    com.otakuji: INFO
+    com.otakuzi: INFO
 
 management:
   endpoint:
