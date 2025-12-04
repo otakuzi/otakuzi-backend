@@ -19,7 +19,7 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_id")
-    private BigInteger shopId;
+    private Long shopId;
     
     @Column(name = "place_name", nullable = false)
     private String placeName;
