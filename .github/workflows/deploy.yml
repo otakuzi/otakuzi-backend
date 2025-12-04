@@ -40,7 +40,6 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ec2-user/app
             sudo systemctl stop otakuzi-backend
-            sudo mv build/libs/*.jar otakuzi-backend.jar
+            sudo mv /home/ec2-user/app/build/libs/otakuzi-backend-*.jar /home/ec2-user/app/otakuzi-backend.jar
             sudo systemctl start otakuzi-backend
