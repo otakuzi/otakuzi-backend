@@ -18,26 +18,30 @@ public class Shop {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger shop_id;
+    @Column(name = "shop_id")
+    private BigInteger shopId;
     
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "place_name", nullable = false)
+    private String placeName;
     
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @Column(name = "category_name")
+    private String categoryName;
     
-    @Column(nullable = false)
+    @Column(name = "phone")
     private String phone;
     
-    @Column(nullable = false)
-    private String address_name;
+    @Column(name = "address_name", nullable = false)
+    private String addressName;
     
-    @Column(nullable = false)
-    private String road_address_name;
+    @Column(name = "road_address_name")
+    private String roadAddressName;
     
-    @Column(nullable = false)
-    private Double latitude;
+    @Column(name = "x", nullable = false)
+    private String x;  // 경도(longitude)
     
-    @Column(nullable = false)
-    private Double longitude;
+    @Column(name = "y", nullable = false)
+    private String y;  // 위도(latitude)
+    
+    @Column(name = "place_url")
+    private String placeUrl;
 }
