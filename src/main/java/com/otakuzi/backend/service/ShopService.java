@@ -22,6 +22,6 @@ public class ShopService {
     
     // 이름 포함 검색
     public List<Shop> getShopByNameContaining(String name) {
-        return shopRepository.findByNameContaining(name);
+        return shopRepository.findByPlaceNameContaining(name);
     }
 }
