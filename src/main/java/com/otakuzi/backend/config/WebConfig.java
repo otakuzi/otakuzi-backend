@@ -9,15 +9,18 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/shops/**")
-                .allowedOrigins(
+        registry.addMapping("/api/**")
+                .allowedOriginPatterns(
                     "http://otakuim.com",
+                    "https://otakuim.com",
                     "http://www.otakuim.com",
+                    "https://www.otakuim.com",
                     "http://51.20.93.193:3000",
                     "http://localhost:3000"
-                ) // Next.js 기본 포트
+                )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
