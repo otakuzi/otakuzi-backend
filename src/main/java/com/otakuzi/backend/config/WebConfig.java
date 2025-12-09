@@ -15,8 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
                     "https://otakuim.com",
                     "http://www.otakuim.com",
                     "https://www.otakuim.com",
-                    "http://43.203.207.103:3000",
-                    "https://43.203.207.103:3000",
                     "http://localhost:3000"
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
