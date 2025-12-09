@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql:3306/otakuzi?useSSL=false&allowPublicKeyRetrieval=true
-    username: admin 
-    password: qmfflcl2
+    url: ${RDS_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}

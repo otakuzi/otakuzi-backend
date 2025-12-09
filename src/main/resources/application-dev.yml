@@ -1,7 +1,7 @@
 ﻿spring:
   datasource:
     # AWS RDS 개발용 엔드포인트
-    url: jdbc:mysql://otakuzi-db.crwqqswce3v5.ap-northeast-2.rds.amazonaws.com:3306/otakuzi?useSSL=true&requireSSL=true&serverTimezone=UTC
+    url: ${RDS_URL}
     username: ${DB_USERNAME:admin}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
