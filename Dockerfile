@@ -24,9 +24,6 @@ WORKDIR /app
 # 빌드된 JAR 파일 복사
 COPY --from=build /app/build/libs/*.jar app.jar
 
-# 환경변수 설정
-ENV SPRING_PROFILES_ACTIVE=prod
-
 # 포트 노출
 EXPOSE 8080
 

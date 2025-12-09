@@ -54,6 +54,7 @@ jobs:
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e ADMIN_ID="${{ secrets.ADMIN_ID }}" \
               -e ADMIN_PW="${{ secrets.ADMIN_PW }}" \
+              -e RDS_URL="${{ secrets.RDS_URL }}" \
               ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
             
             # 청소
