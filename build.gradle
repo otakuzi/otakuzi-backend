@@ -37,7 +37,7 @@ dependencies {
 	// Spring Boot Actuator 추가 (헬스체크용)
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// Swagger (Spring Boot 3.x 버전용)
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
