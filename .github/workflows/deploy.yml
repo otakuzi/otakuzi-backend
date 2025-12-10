@@ -50,9 +50,9 @@ jobs:
               --restart always \
               -e TZ=Asia/Seoul \
               -e JAVA_OPTS="-Xms256m -Xmx384m" \
-              -e DB_URL="${{ secrets.DB_URL }}" \
-              -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
-              -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+              -e SPRING_DATASOURCE_URL="${{ secrets.RDS_URL }}" \
+              -e SPRING_DATASOURCE_USERNAME="${{ secrets.DB_USERNAME }}" \
+              -e SPRING_DATASOURCE_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e ADMIN_ID="${{ secrets.ADMIN_ID }}" \
               -e ADMIN_PW="${{ secrets.ADMIN_PW }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
