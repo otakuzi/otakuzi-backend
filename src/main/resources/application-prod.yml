@@ -1,9 +1,9 @@
 ﻿spring:
   datasource:
     # AWS RDS 운영용 엔드포인트 (명시적으로)
-    url: ${RDS_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
