@@ -62,7 +62,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin);
     }
 
-    // [추가] 4. 비밀번호 암호화 기계 등록 (BCrypt 방식)
+    // 4. 비밀번호 암호화 기계 등록 (BCrypt 방식)
     @Bean
     public PasswordEncoder passwordEncoder() {
         // 가장 많이 쓰는 강력한 암호화 방식입니다.
