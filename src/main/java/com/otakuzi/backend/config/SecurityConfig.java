@@ -3,6 +3,7 @@ package com.otakuzi.backend.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -48,10 +49,10 @@ public class SecurityConfig {
                         ).authenticated()
 
                         // 관리자 전용 API (/admin/** 로 시작하는 모든 것) -> 관리자만 가능!
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         // 프론트엔드 API는 여전히 누구나 접근 가능
-                        .requestMatchers("/api/shops/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/shops/**").permitAll()
 
                         // 나머지는 다 허용 (개발 편의상)
                         .anyRequest().permitAll()
