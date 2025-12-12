@@ -1,5 +1,6 @@
 package com.otakuzi.backend.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -22,6 +23,12 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Value("${security.admin.id}")
+    private String adminId;
+
+    @Value("${security.admin.pw}")
+    private String adminPw;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,8 +61,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder() // withDefaultPasswordEncoder 대신 builder 사용
-                .username("otakuzi")
-                .password(passwordEncoder().encode("5xkzndla!")) // 암호화 기계로 비밀번호 감싸기
+                .username(adminId)
+                .password(passwordEncoder().encode(adminPw)) // 암호화 기계로 비밀번호 감싸기
                 .roles("ADMIN")
                 .build();
 
