@@ -24,10 +24,10 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${security.admin.id}")
+    @Value("${ADMIN_ID}")
     private String adminId;
 
-    @Value("${security.admin.pw}")
+    @Value("${ADMIN_PW}")
     private String adminPw;
 
     @Bean
@@ -46,6 +46,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).authenticated()
+
+                        // 관리자 전용 API (/admin/** 로 시작하는 모든 것) -> 관리자만 가능!
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 
                         // 프론트엔드 API는 여전히 누구나 접근 가능
                         .requestMatchers("/api/shops/**").permitAll()

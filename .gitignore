@@ -37,3 +37,6 @@ out/
 .vscode/
 
 .env
+
+# 시크릿 설정 파일 무시
+application-secret.yml
