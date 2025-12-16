@@ -33,9 +33,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("ADMIN_ID: " + adminId);      // ← 추가
-        System.out.println("ADMIN_PW: " + adminPw);      // ← 추가
-
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
