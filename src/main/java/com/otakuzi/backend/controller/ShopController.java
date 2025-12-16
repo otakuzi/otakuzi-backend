@@ -19,15 +19,20 @@ public class ShopController {
     
     private final ShopService shopService;
     
-    @Operation(summary = "매장 전체 조회", description = "모든 매장 목록을 조회하거나, 이름으로 검색합니다.") // 2. API 설명
+    @Operation(summary = "매장 전체 조회", description = "모든 매장 목록을 조회하거나, 이름 또는 카테고리로 검색합니다.") // 2. API 설명
     // 전체 조회
     @GetMapping
     public ResponseEntity<List<Shop>> getAllShops(
         @Parameter(description = "검색할 매장 이름 (부분 일치)") // 3. 파라미터 설명
-        @RequestParam(required = false) String name
+        @RequestParam(required = false) String name,
+        @Parameter(description = "검색할 매장 카테고리 (일치)") // 3. 파라미터 설명
+        @RequestParam(required = false) String categoryName
     ) {
         if (name != null) {
             return ResponseEntity.ok(shopService.getShopByNameContaining(name));
+        }
+        if (categoryName != null) {
+            return ResponseEntity.ok(shopService.getShopByCategoryName(categoryName));
         }
         return ResponseEntity.ok(shopService.getAllShops());
     }

@@ -29,6 +29,10 @@ public class ShopService {
         return shopRepository.findByPlaceNameContaining(name);
     }
 
+    public List<Shop> getShopByCategoryName(String categoryName) {
+        return shopRepository.findAllByCategoryName(categoryName);
+    }
+
     public Shop updateShop(Long id, Shop shopDetails) {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("매장 정보가 없습니다."));
