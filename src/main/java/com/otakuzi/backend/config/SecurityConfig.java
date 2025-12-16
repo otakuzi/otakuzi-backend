@@ -25,14 +25,17 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${ADMIN_ID}")
+    @Value("${admin.id}")
     private String adminId;
 
-    @Value("${ADMIN_PW}")
+    @Value("${admin.pw}")
     private String adminPw;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        System.out.println("ADMIN_ID: " + adminId);      // ← 추가
+        System.out.println("ADMIN_PW: " + adminPw);      // ← 추가
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "상점(Shop)", description = "상점 관련 API입니다.") // 1. API 그룹 이름 설정
+@Tag(name = "매장(Shop)", description = "매장 관련 API입니다.") // 1. API 그룹 이름 설정
 @RestController
 @RequestMapping("/api/shops")
 @RequiredArgsConstructor
@@ -19,11 +19,11 @@ public class ShopController {
     
     private final ShopService shopService;
     
-    @Operation(summary = "상점 전체 조회", description = "모든 상점 목록을 조회하거나, 이름으로 검색합니다.") // 2. API 설명
+    @Operation(summary = "매장 전체 조회", description = "모든 매장 목록을 조회하거나, 이름으로 검색합니다.") // 2. API 설명
     // 전체 조회
     @GetMapping
     public ResponseEntity<List<Shop>> getAllShops(
-        @Parameter(description = "검색할 상점 이름 (부분 일치)") // 3. 파라미터 설명
+        @Parameter(description = "검색할 매장 이름 (부분 일치)") // 3. 파라미터 설명
         @RequestParam(required = false) String name
     ) {
         if (name != null) {
