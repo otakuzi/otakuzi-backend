@@ -56,6 +56,11 @@ jobs:
               -e ADMIN_ID="${{ secrets.ADMIN_ID }}" \
               -e ADMIN_PW="${{ secrets.ADMIN_PW }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
+              --log-driver=awslogs \
+              --log-opt awslogs-region=ap-northeast-2 \
+              --log-opt awslogs-group=/otakuzi/app \
+              --log-opt awslogs-stream=server-1 \
+              --log-opt awslogs-create-group=true \
               ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
             
             # 청소
