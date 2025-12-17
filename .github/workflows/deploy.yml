@@ -61,6 +61,8 @@ jobs:
               --log-opt awslogs-group=/otakuzi/app \
               --log-opt awslogs-stream=server-1 \
               --log-opt awslogs-create-group=true \
+              -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
               ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
             
             # 청소

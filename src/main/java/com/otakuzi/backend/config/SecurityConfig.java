@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
+
                         // ★ 2. Swagger 주소: 이제 '로그인한 사람(authenticated)'만 볼 수 있음
                         .requestMatchers(
                                 "/v3/api-docs/**",

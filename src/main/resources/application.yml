@@ -16,8 +16,27 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
   config:
-    # 'optional:'을 붙이면 파일이 없어도 에러가 안 납니다. (배포 환경을 위해 필수)
     import: optional:classpath:application-secret.yml
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_CLIENT_ID}
+
+            redirect-uri: http://localhost:3000/oauth/callback/kakao
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+            scope:
+              - profile_nickname
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
 
 # 서버 포트
 server:
