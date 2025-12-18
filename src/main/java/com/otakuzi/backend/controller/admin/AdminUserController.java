@@ -1,0 +1,34 @@
+package com.otakuzi.backend.controller.admin;
+
+import com.otakuzi.backend.dto.admin.AdminUserUpdateDto;
+import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.service.admin.AdminUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@Tag(name = "관리자(Admin)", description = "관리자 페이지입니다.")
+@RestController
+@RequestMapping("/api/admin/users")
+@RequiredArgsConstructor
+public class AdminUserController {
+
+    private final AdminUserService adminUserService;
+
+    @PutMapping({"/{id}"})
+    @Operation(summary = "사용자 수정", description = "사용자 정보를 수정합니다.")
+    public ResponseEntity<AdminUserUpdateDto> updateUser(
+            @PathVariable Long id,
+            @RequestBody AdminUserUpdateDto userUpdateDto) {
+        return ResponseEntity.ok(adminUserService.adminUpdateUser(id, userUpdateDto));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "사용자 삭제", description = "사용자 정보를 삭제합니다.")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        adminUserService.adminDeleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+}
