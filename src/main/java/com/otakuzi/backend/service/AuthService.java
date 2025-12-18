@@ -16,13 +16,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -101,7 +105,6 @@ public class AuthService {
         String provider = userInfo.getProvider();
         String providerId = userInfo.getProviderId();
         String email = userInfo.getEmail();
-        String nickname = userInfo.getNickname();
         String profileImage = userInfo.getProfileImage();
 
         // DB에서 providerId로 찾기
@@ -110,9 +113,12 @@ public class AuthService {
 
         // 없으면 신규 가입
         if (user == null) {
+            // 임시 닉네임
+            String tempNickname = "임시_" + UUID.randomUUID().toString().substring(0, 8);
+
             user = User.builder()
                     .email(email != null ? email : "")
-                    .nickname(nickname)
+                    .nickname(tempNickname)
                     .provider(provider)
                     .providerId(providerId)
                     .profileImage(profileImage)

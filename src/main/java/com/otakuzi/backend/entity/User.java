@@ -29,10 +29,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "nickname", nullable = false, length = 20)
+    @Column(name = "nickname", nullable = false, length = 100)
     private String nickname;
 
-    @Column(name = "profile_image", length = 200)
+    @Column(name = "profile_image", length = 500)
     private String profileImage;
 
     @Column(name = "phone_number", length = 20)
