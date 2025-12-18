@@ -68,6 +68,7 @@ public class User {
         this.isDeleted = false; // 기본값
     }
 
+    // 관리자 페이지 수정 메소드
     public void updateAdminInfo(String email, String profileImage, UserType userType, Boolean isDeleted) {
         if (email != null) this.email = email;
         if (profileImage != null) this.profileImage = profileImage;

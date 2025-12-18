@@ -21,11 +21,11 @@ public class ShopService {
     }
     
     // 이름 포함 검색
-    public List<Shop> getShopByNameContaining(String name) {
+    public List<Shop> getShopsByNameContaining(String name) {
         return shopRepository.findByPlaceNameContaining(name);
     }
 
-    public List<Shop> getShopByCategoryName(String categoryName) {
+    public List<Shop> getShopsByCategoryName(String categoryName) {
         return shopRepository.findAllByCategoryName(categoryName);
     }
     }

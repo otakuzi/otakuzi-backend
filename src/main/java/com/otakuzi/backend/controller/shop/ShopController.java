@@ -29,10 +29,10 @@ public class ShopController {
         @RequestParam(required = false) String categoryName
     ) {
         if (name != null) {
-            return ResponseEntity.ok(shopService.getShopByNameContaining(name));
+            return ResponseEntity.ok(shopService.getShopsByNameContaining(name));
         }
         if (categoryName != null) {
-            return ResponseEntity.ok(shopService.getShopByCategoryName(categoryName));
+            return ResponseEntity.ok(shopService.getShopsByCategoryName(categoryName));
         }
         return ResponseEntity.ok(shopService.getAllShops());
     }
