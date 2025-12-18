@@ -1,7 +1,7 @@
-package com.otakuzi.backend.controller;
+package com.otakuzi.backend.controller.admin;
 
 import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.service.AdminService;
+import com.otakuzi.backend.service.admin.AdminShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin/shops")
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminShopController {
 
-    private final AdminService adminService;
+    private final AdminShopService adminShopService;
 
     @PostMapping
     @Operation(summary = "매장 추가", description = "매장 정보를 새로 추가합니다.")
     public ResponseEntity<Shop> createShop(@RequestBody Shop shop) {
-        return ResponseEntity.ok(adminService.adminCreateShop(shop));
+        return ResponseEntity.ok(adminShopService.adminCreateShop(shop));
     }
 
     @PutMapping({"/{id}"})
@@ -27,13 +27,13 @@ public class AdminController {
     public ResponseEntity<Shop> updateShop(
             @PathVariable Long id,
             @RequestBody Shop shopDeatils) {
-        return ResponseEntity.ok(adminService.adminUpdateShop(id, shopDeatils));
+        return ResponseEntity.ok(adminShopService.adminUpdateShop(id, shopDeatils));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "매장 삭제", description = "해당 매장 정보를 삭제합니다.")
     public ResponseEntity<Shop> deleteShop(@PathVariable Long id) {
-        adminService.adminDeleteShop(id);
+        adminShopService.adminDeleteShop(id);
         return ResponseEntity.noContent().build();
     }
 }

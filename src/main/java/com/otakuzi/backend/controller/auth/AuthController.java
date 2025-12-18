@@ -1,7 +1,7 @@
-package com.otakuzi.backend.controller;
+package com.otakuzi.backend.controller.auth;
 
 import com.otakuzi.backend.dto.auth.TokenDto;
-import com.otakuzi.backend.service.AuthService;
+import com.otakuzi.backend.service.auth.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;

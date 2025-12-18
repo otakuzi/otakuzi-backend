@@ -1,11 +1,11 @@
-package com.otakuzi.backend.service;
+package com.otakuzi.backend.service.auth;
 
 import com.otakuzi.backend.dto.auth.OAuth2UserInfo;
 import com.otakuzi.backend.dto.auth.TokenDto;
 import com.otakuzi.backend.entity.User;
 import com.otakuzi.backend.jwt.JwtTokenProvider;
 import com.otakuzi.backend.repository.UserRepository;
-import com.otakuzi.backend.entity.UserType;
+import com.otakuzi.backend.constant.UserType;
 import com.otakuzi.backend.dto.auth.KakaoTokenResponse;
 import com.otakuzi.backend.dto.auth.KakaoUserInfo;
 import lombok.RequiredArgsConstructor;

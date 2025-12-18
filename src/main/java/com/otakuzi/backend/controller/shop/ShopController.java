@@ -1,7 +1,7 @@
-package com.otakuzi.backend.controller;
+package com.otakuzi.backend.controller.shop;
 
 import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.service.ShopService;
+import com.otakuzi.backend.service.shop.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,4 +1,4 @@
-package com.otakuzi.backend.service;
+package com.otakuzi.backend.service.admin;
 
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.repository.ShopRepository;
@@ -6,34 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class ShopService {
-    
+@RequiredArgsConstructor
+public class AdminShopService {
+
     private final ShopRepository shopRepository;
 
-    public Shop createShop(Shop shop) {
+    public Shop adminCreateShop(Shop shop) {
         return shopRepository.save(shop);
     }
 
-    // 전체 조회
-    public List<Shop> getAllShops() {
-        return shopRepository.findAll();
-    }
-    
-    // 이름 포함 검색
-    public List<Shop> getShopByNameContaining(String name) {
-        return shopRepository.findByPlaceNameContaining(name);
-    }
-
-    public List<Shop> getShopByCategoryName(String categoryName) {
-        return shopRepository.findAllByCategoryName(categoryName);
-    }
-
-    public Shop updateShop(Long id, Shop shopDetails) {
+    public Shop adminUpdateShop(Long id, Shop shopDetails) {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("매장 정보가 없습니다."));
 
@@ -49,7 +33,7 @@ public class ShopService {
         return shopRepository.save(shop);
     }
 
-    public void deleteShop(Long id) {
+    public void adminDeleteShop(Long id) {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("매장 정보가 없습니다."));
 

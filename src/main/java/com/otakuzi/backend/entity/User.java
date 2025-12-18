@@ -1,5 +1,6 @@
 package com.otakuzi.backend.entity;
 
+import com.otakuzi.backend.constant.UserType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,6 +66,13 @@ public class User {
         this.provider = provider;
         this.providerId = providerId;
         this.isDeleted = false; // 기본값
+    }
+
+    public void updateAdminInfo(String email, String profileImage, UserType userType, Boolean isDeleted) {
+        if (email != null) this.email = email;
+        if (profileImage != null) this.profileImage = profileImage;
+        if (userType != null) this.userType = userType;
+        if (isDeleted != null) this.isDeleted = isDeleted;
     }
 
     // 로그인 성공 시 실행할 메서드 (더티 체킹으로 DB 업데이트)
