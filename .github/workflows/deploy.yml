@@ -53,8 +53,6 @@ jobs:
               -e SPRING_PROFILES_ACTIVE=prod \
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
-              -e ADMIN_ID="${{ secrets.ADMIN_ID }}" \
-              -e ADMIN_PW="${{ secrets.ADMIN_PW }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
               --log-driver=awslogs \
               --log-opt awslogs-region=ap-northeast-2 \

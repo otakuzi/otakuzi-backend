@@ -53,7 +53,7 @@ public class AuthService {
         User user = registerOrUpdateUser(kakaoUserInfo);
 
         // 4. 우리 서비스 전용 JWT 토큰 발급
-        TokenDto tokenDto = jwtTokenProvider.generateToken(user.getEmail(), user.getUserType().toString());
+        TokenDto tokenDto = jwtTokenProvider.generateToken(user.getUserId(), user.getUserType().toString());
 
         // 일단은 테스트를 위해 유저 이름만 리턴해봅니다.
         return tokenDto;

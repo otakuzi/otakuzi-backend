@@ -26,20 +26,11 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${admin.id}")
-    private String adminId;
-
-    @Value("${admin.pw}")
-    private String adminPw;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-                // ★ 1. HTTP Basic 로그인 활성화 (브라우저 팝업창 뜸)
-                .httpBasic(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
@@ -64,19 +55,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ★ 3. 메모리에 임시 관리자 계정 만들기 (DB 없이 작동)
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.builder() // withDefaultPasswordEncoder 대신 builder 사용
-                .username(adminId)
-                .password(passwordEncoder().encode(adminPw)) // 암호화 기계로 비밀번호 감싸기
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin);
-    }
-
-    // 4. 비밀번호 암호화 기계 등록 (BCrypt 방식)
+    // 비밀번호 암호화 기계 등록 (BCrypt 방식)
     @Bean
     public PasswordEncoder passwordEncoder() {
         // 가장 많이 쓰는 강력한 암호화 방식입니다.

@@ -18,26 +18,24 @@ public class JwtTokenProvider {
     private final Key key;
 
     public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey); // 혹은 getBytes()
-        this.key = Keys.hmacShaKeyFor(keyBytes); // HMAC SHA 알고리즘 사용
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // 유저 정보를 받아서 AccessToken, RefreshToken 생성
-    public TokenDto generateToken(String email, String role) {
+    // 토큰 생성
+    public TokenDto generateToken(Long userId, String role) {
         long now = (new Date()).getTime();
+        Date accessTokenExpiresIn = new Date(now + 1000 * 60 * 30); // 30분
 
-        // 1. Access Token 생성 (유효기간 30분)
-        Date accessTokenExpiresIn = new Date(now + 1000 * 60 * 30);
         String accessToken = Jwts.builder()
-                .setSubject(email) // 토큰 주인 (이메일)
-                .claim("auth", role) // 권한 정보 (ROLE_USER 등)
+                .setSubject(String.valueOf(userId))
+                .claim("auth", role)                // 권한 정보 저장
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        // 2. Refresh Token 생성 (유효기간 7일)
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 1000 * 60 * 60 * 24 * 7))
+                .setExpiration(new Date(now + 1000 * 60 * 60 * 24 * 3)) // 3일
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
@@ -48,5 +46,35 @@ public class JwtTokenProvider {
                 .build();
     }
 
-    // (나중에 추가할 것: 토큰 검증, 토큰에서 유저 정보 꺼내기 등)
+    // 토큰 검증 (이게 있어야 필터가 '유효한 토큰'인지 알 수 있음)
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            log.info("잘못된 JWT 서명입니다.");
+        } catch (ExpiredJwtException e) {
+            log.info("만료된 JWT 토큰입니다.");
+        } catch (UnsupportedJwtException e) {
+            log.info("지원되지 않는 JWT 토큰입니다.");
+        } catch (IllegalArgumentException e) {
+            log.info("JWT 토큰이 잘못되었습니다.");
+        }
+        return false;
+    }
+
+    // 토큰에서 User ID 꺼내기 (필터가 DB에서 유저를 찾을 때 사용)
+    public Long getUserIdFromToken(String token) {
+        Claims claims = parseClaims(token);
+        return Long.parseLong(claims.getSubject());
+    }
+
+    // (내부용) 복호화 로직
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
+    }
 }
