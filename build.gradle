@@ -27,6 +27,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'com.mysql:mysql-connector-j' // 순정 MySQL 드라이버 사용
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -46,12 +47,14 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// AWS Advanced JDBC Wrapper
-	implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.6.8'
 
-	// AWS SDK - Secrets Manager
-	implementation 'software.amazon.awssdk:secretsmanager:2.25.0'
-	implementation 'software.amazon.awssdk:sts:2.25.0'
+	// 🔥 [수정] 래퍼 삭제하고, AWS SDK만 남김
+	implementation platform('software.amazon.awssdk:bom:2.20.160') // BOM 사용 (버전 관리 편함)
+	implementation 'software.amazon.awssdk:secretsmanager'
+	implementation 'software.amazon.awssdk:sts'
+
+	// JSON 파싱용 (이미 있겠지만 확실하게)
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 tasks.named('test') {

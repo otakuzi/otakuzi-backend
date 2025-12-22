@@ -6,12 +6,8 @@
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     url: ${RDS_URL}
-    username: ${RDS_SECRET}
+    username: "dummy_name"
     password: "dummy_password"
-
-    hikari:
-      data-source-properties:
-        wrapperPlugins: "secretsManager"
 
   jpa:
     hibernate:
