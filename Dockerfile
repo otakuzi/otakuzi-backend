@@ -22,7 +22,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
   CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
 
-# [디버깅용] 빌드된 JAR 파일 안에 'secretsmanager'가 들어있는지 목록 출력
-RUN jar tf app.jar | grep "secretsmanager" || echo "❌ 라이브러리 없음!"
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
