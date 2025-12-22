@@ -50,17 +50,19 @@ jobs:
               --restart always \
               -e TZ=Asia/Seoul \
               -e JAVA_OPTS="-Xms256m -Xmx384m" \
-              -e SPRING_PROFILES_ACTIVE=prod \
+              -e SPRING_PROFILES_ACTIVE=dev \
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
+              -e RDS_SECRET="${{ secrets.RDS_SECRET }}" \
+              -e KAKAO_CLIENT_ID="${{ secrets.KAKAO_CLIENT_ID }}" \
+              -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
               --log-driver=awslogs \
               --log-opt awslogs-region=ap-northeast-2 \
               --log-opt awslogs-group=/otakuzi/app \
               --log-opt awslogs-stream=server-1 \
               --log-opt awslogs-create-group=true \
-              -e KAKAO_CLIENT_ID="${{ secrets.KAKAO_CLIENT_ID }}" \
-              -e JWT_SECRET="${{ secrets.JWT_SECRET }}" ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
+              ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
             
             # 청소
             docker image prune -f

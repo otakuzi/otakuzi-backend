@@ -1,22 +1,18 @@
 ﻿spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
+    driver-class-name: software.amazon.jdbc.Driver
     # AWS RDS 개발용 엔드포인트
     url: ${RDS_URL}
-    username: ${DB_USERNAME:admin}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${RDS_SECRET}
+    password: "dummy_password" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
+    hikari:
+      data-source-properties:
+        wrapperPlugins: "secretsManager" # 플러그인 활성화
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
-
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.otakuzi: DEBUG
+      ddl-auto: validate

@@ -1,5 +1,15 @@
 spring:
+  config:
+    activate:
+      on-profile: local
+
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${RDS_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      # [Local] 개발 편의를 위해 테이블 자동 수정 허용
+      ddl-auto: update

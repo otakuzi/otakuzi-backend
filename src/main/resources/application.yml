@@ -3,9 +3,8 @@ spring:
   application:
     name: otakuzi-backend
 
-  # 활성 프로파일 (환경변수로 제어, 기본값은 dev)
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${SPRING_PROFILES_ACTIVE:local}
 
   # JPA 공통 설정
   jpa:
@@ -35,14 +34,11 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
-  datasource:
-    driver-class-name: software.amazon.jdbc.Driver
-    url: ${RDS_URL}
-    username: ${RDS_SECRET}
-    password: "dummy_password"
-    hikari:
-      data-source-properties:
-        wrapperPlugins: "secretsManager"
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      com.otakuzi: DEBUG
 
 # 서버 포트
 server:

@@ -1,22 +1,28 @@
 ﻿spring:
+  config:
+    activate:
+      on-profile: prod
+
   datasource:
-    # AWS RDS 운영용 엔드포인트 (명시적으로)
+    driver-class-name: software.amazon.jdbc.Driver
     url: ${RDS_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${RDS_SECRET}
+    password: "dummy_password"
+    hikari:
+      data-source-properties:
+        wrapperPlugins: "secretsManager"
 
   jpa:
     hibernate:
-      ddl-auto: update  # ✅ 이건 그대로 OK
+      ddl-auto: validate
     show-sql: false
 
 logging:
   level:
-    root: ERROR
-    com.otakuzi: INFO
+    root: ERROR           # 에러만 기록
+    com.otakuzi: INFO     # 내 비즈니스 로직은 정보까지 기록
 
 management:
   endpoint:
     health:
-      show-details: never
+      show-details: never # 보안상 상세 정보 숨김

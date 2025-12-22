@@ -50,6 +50,10 @@ dependencies {
 
 	// aws secrets manager
 	implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.6.8' // 최신 버전 확인 필요
+
+	// AWS SDK 전체 버전 관리 플랫폼
+	implementation platform('software.amazon.awssdk:bom:2.40.12')
+	implementation 'software.amazon.awssdk:secretsmanager'
 }
 
 tasks.named('test') {
