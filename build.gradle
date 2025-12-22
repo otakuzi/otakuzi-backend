@@ -46,12 +46,12 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// ⭐ [핵심 수정] AWS JDBC Wrapper 최신 버전
+	// AWS Advanced JDBC Wrapper
 	implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.6.8'
 
-	// ⭐ [핵심 수정] BOM 삭제하고, Wrapper와 호환되는 SDK 버전 직접 명시
-	implementation 'software.amazon.awssdk:secretsmanager:2.20.160'
-	implementation 'software.amazon.awssdk:sts:2.20.160'
+	// AWS SDK - Secrets Manager
+	implementation 'software.amazon.awssdk:secretsmanager:2.25.0'
+	implementation 'software.amazon.awssdk:sts:2.25.0'
 }
 
 tasks.named('test') {
