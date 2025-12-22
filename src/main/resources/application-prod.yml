@@ -6,7 +6,7 @@
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     url: ${RDS_URL}
-    username: ${DB_USERNAME}
+    username: ${RDS_SECRET}
     password: "dummy_password"
 
   jpa:
