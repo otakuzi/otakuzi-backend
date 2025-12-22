@@ -35,6 +35,15 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+  datasource:
+    driver-class-name: software.amazon.jdbc.Driver
+    url: ${RDS_URL}
+    username: ${RDS_SECRET}
+    password: "dummy_password"
+    hikari:
+      data-source-properties:
+        wrapperPlugins: "secretsManager"
+
 # 서버 포트
 server:
   port: 8080
