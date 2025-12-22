@@ -11,6 +11,7 @@
     hikari:
       data-source-properties:
         wrapperPlugins: "secretsManager"
+        secretsManagerSecretName: ${RDS_SECRET}
 
   jpa:
     hibernate:
