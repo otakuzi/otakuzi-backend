@@ -33,8 +33,8 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./Dockerfile  # 백엔드 Dockerfile 위치 (루트에 있다면 ./Dockerfile)
+          context: ./backend
+          file: ./backend/Dockerfile  # 백엔드 Dockerfile 위치 (루트에 있다면 ./Dockerfile)
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:latest
 
