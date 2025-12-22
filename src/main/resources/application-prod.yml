@@ -8,10 +8,6 @@
     url: ${RDS_URL}
     username: ${DB_USERNAME}
     password: "dummy_password"
-    hikari:
-      data-source-properties:
-        wrapperPlugins: "secretsManager"
-        secretsManagerSecretName: ${RDS_SECRET}
 
   jpa:
     hibernate:
