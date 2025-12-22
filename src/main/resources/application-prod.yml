@@ -9,14 +9,15 @@
     username: ${RDS_SECRET}
     password: "dummy_password"
 
+    hikari:
+      data-source-properties:
+        wrapperPlugins: "secretsManager"
+
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: false
 
-  hikari:
-    data-source-properties:
-      wrapperPlugins: "secretsManager"
 
 logging:
   level:
