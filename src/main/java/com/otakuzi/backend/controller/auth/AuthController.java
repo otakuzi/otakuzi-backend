@@ -4,6 +4,7 @@ import com.otakuzi.backend.dto.auth.TokenDto;
 import com.otakuzi.backend.service.auth.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Value("${spring.profiles.active:local}") // 현재 프로필(local, prod 등) 가져오기
+    private String activeProfile;
+
     // 프론트에서 인가 코드를 받아오는 API
     // GET /api/auth/kakao/callback?code=xxxxxx
     @GetMapping("/kakao/callback")
@@ -25,13 +29,15 @@ public class AuthController {
 
         TokenDto tokenDto = authService.kakaoLogin(code);
 
+        boolean isProd = "prod".equals(activeProfile); // 배포 환경인지 체크
+
         // 쿠키 생성 (HttpOnly 설정)
         ResponseCookie cookie = ResponseCookie.from("accessToken", tokenDto.getAccessToken())
-                .httpOnly(true)       // 자바스크립트 접근 불가 (보안 핵심)
-                .secure(false)        // 로컬(http) 환경에서는 false여야 함. 배포(https)때는 true로 변경!
-                .path("/")            // 모든 경로에서 쿠키 사용
-                .maxAge(60 * 60 * 24) // 1일 동안 유지
-                .sameSite("Lax")      // 같은 도메인끼리 전송
+                .httpOnly(true)
+                .secure(isProd)          // ★ 배포면 true, 로컬이면 false
+                .path("/")
+                .maxAge(60 * 60 * 24)
+                .sameSite(isProd ? "None" : "Lax") // ★ 배포면 None(도메인 달라도 전송), 로컬이면 Lax
                 .build();
 
         // 응답 헤더에 쿠키 추가

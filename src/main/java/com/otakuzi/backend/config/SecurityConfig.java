@@ -42,11 +42,14 @@ public class SecurityConfig {
                         // 1. 로그인/인증 관련은 누구나 접근 가능
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // ★ 2. Swagger 및 관리자 API: 'ADMIN' 권한만 가능!
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // 관리자 API: 'ADMIN' 권한만 가능!
+                        .requestMatchers(
                                 "/api/admin/**"
                         ).hasRole("ADMIN")
 
