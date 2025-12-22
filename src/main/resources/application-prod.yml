@@ -14,6 +14,10 @@
       ddl-auto: validate
     show-sql: false
 
+  hikari:
+    data-source-properties:
+      wrapperPlugins: "secretsManager"
+
 logging:
   level:
     root: ERROR           # 에러만 기록
