@@ -11,10 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOriginPatterns(
-                    "http://otakuim.com",
                     "https://otakuim.com",
-                    "http://www.otakuim.com",
                     "https://www.otakuim.com",
+                    "https://dev.otakuim.com",
                     "http://localhost:3000"
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")

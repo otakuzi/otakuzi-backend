@@ -43,14 +43,16 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
 
                         .requestMatchers(
-                                "/v3/api-docs/**",
+                                "/v3/api-docs/swagger-config",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
+                        .requestMatchers("/v3/api-docs/1. 일반 사용자용").permitAll()
 
                         // 관리자 API: 'ADMIN' 권한만 가능!
                         .requestMatchers(
-                                "/api/admin/**"
+                                "/api/admin/**",
+                                "/v3/api-docs/2. 관리자 전용"
                         ).hasRole("ADMIN")
 
                         // 3. 프론트엔드 조회 API는 누구나 접근 가능
