@@ -79,7 +79,8 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://otakuim.com",
-                "https://www.otakuim.com"
+                "https://www.otakuim.com",
+                "https://dev.otakuim.com"
         ));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
