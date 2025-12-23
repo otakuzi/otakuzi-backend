@@ -1,4 +1,4 @@
-﻿name: Deploy Backend with Docker
+﻿name: Deploy Backend (Prod)
 
 on:
   push:
