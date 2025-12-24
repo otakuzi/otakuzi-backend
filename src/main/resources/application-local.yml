@@ -13,3 +13,9 @@ spring:
     hibernate:
       # [Local] 개발 편의를 위해 테이블 자동 수정 허용
       ddl-auto: update
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

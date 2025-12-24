@@ -1,6 +1,6 @@
 package com.otakuzi.backend.config;
 
-import com.otakuzi.backend.jwt.JwtFilter; // ★ import 확인
+import com.otakuzi.backend.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,45 +22,40 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor // ★ 필드 주입(JwtFilter)을 위해 필수
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtFilter jwtFilter; // ★ 핵심: 검문소(필터) 가져오기
+    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-                // 세션 끄기 (JWT 방식 필수 설정)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-
                 .authorizeHttpRequests(auth -> auth
-                        // 1. 로그인/인증 관련은 누구나 접근 가능
-                        .requestMatchers("/api/auth/**").permitAll()
+                        // ★ [중요 1] Preflight(OPTIONS) 요청은 무조건 허용 (JwtFilter 닿기 전에)
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                        .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest).permitAll()
+
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        // 관리자 API: 'ADMIN' 권한만 가능!
-                        .requestMatchers(
-                                "/api/admin/**"
-                        ).hasRole("ADMIN")
+                        // 관리자
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // 3. 프론트엔드 조회 API는 누구나 접근 가능
-                        .requestMatchers(HttpMethod.GET, "/api/shops/**").permitAll()
+                        // ★ [중요 2] shops 경로 명확하게 지정 (뒤에 슬래시 없는 것도 포함)
+                        .requestMatchers(HttpMethod.GET, "/api/shops", "/api/shops/**").permitAll()
 
-                        // 4. 나머지는 다 허용
                         .anyRequest().permitAll()
                 )
-
-                // ★ 핵심: ID/PW 검사 전에 'JWT 필터'를 먼저 돌려라!
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -74,14 +69,23 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
+
+        config.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",
                 "https://otakuim.com",
-                "https://www.otakuim.com"
+                "https://www.otakuim.com",
+                "https://dev.otakuim.com",
+                "https://dev-api.otakuim.com"
         ));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        // PATCH 포함 모든 메서드 허용
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+
+        // ★ [핵심 해결] 브라우저가 보내는 잡다한 헤더를 다 받아줘야 함!
+        config.setAllowedHeaders(Arrays.asList("*"));
+
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L); // 1시간 동안 Preflight 캐싱 (불필요한 요청 줄임)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
