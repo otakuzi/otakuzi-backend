@@ -14,6 +14,13 @@ spring:
       # [Local] 개발 편의를 위해 테이블 자동 수정 허용
       ddl-auto: update
 
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            redirect-uri: http://localhost:3000/oauth/callback/kakao
+
 springdoc:
   api-docs:
     enabled: true
