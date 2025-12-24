@@ -68,27 +68,43 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-
-        config.setAllowedOriginPatterns(List.of(
-                "http://localhost:3000",
-                "https://otakuim.com",
-                "https://www.otakuim.com",
-                "https://dev.otakuim.com",
-                "https://dev-api.otakuim.com"
-        ));
-
-        // PATCH 포함 모든 메서드 허용
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-
-        // ★ [핵심 해결] 브라우저가 보내는 잡다한 헤더를 다 받아줘야 함!
-        config.setAllowedHeaders(Arrays.asList("*"));
-
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L); // 1시간 동안 Preflight 캐싱 (불필요한 요청 줄임)
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+
+        // ======================================================
+        // 1. 관리자 전용 설정 (Localhost & Dev만 허용)
+        // ======================================================
+        CorsConfiguration adminConfig = new CorsConfiguration();
+        adminConfig.setAllowedOriginPatterns(List.of(
+                "http://localhost:3000",       // 로컬 프론트
+                "https://dev.otakuim.com"      // 개발 서버 프론트
+        ));
+        adminConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        adminConfig.setAllowedHeaders(Arrays.asList("*"));
+        adminConfig.setAllowCredentials(true);
+        adminConfig.setMaxAge(3600L);
+
+        // ★ 핵심: "/api/admin/**" 경로는 adminConfig를 따르도록 등록
+        source.registerCorsConfiguration("/api/admin/**", adminConfig);
+
+
+        // ======================================================
+        // 2. 일반 공통 설정 (Prod 포함 모든 곳 허용)
+        // ======================================================
+        CorsConfiguration publicConfig = new CorsConfiguration();
+        publicConfig.setAllowedOriginPatterns(List.of(
+                "http://localhost:3000",
+                "https://otakuim.com",          // 운영 서버 허용
+                "https://www.otakuim.com",
+                "https://dev.otakuim.com"
+        ));
+        publicConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        publicConfig.setAllowedHeaders(Arrays.asList("*"));
+        publicConfig.setAllowCredentials(true);
+        publicConfig.setMaxAge(3600L);
+
+        // 나머지 모든 경로는 publicConfig를 따름
+        source.registerCorsConfiguration("/**", publicConfig);
+
         return source;
     }
 }
