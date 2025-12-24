@@ -74,7 +74,8 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "https://otakuim.com",
                 "https://www.otakuim.com",
-                "https://dev.otakuim.com"
+                "https://dev.otakuim.com",
+                "https://dev-api.otakuim.com"
         ));
 
         // PATCH 포함 모든 메서드 허용
