@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "shops")
@@ -23,9 +25,9 @@ public class Shop {
     
     @Column(name = "place_name", nullable = false)
     private String placeName;
-    
-    @Column(name = "category_name")
-    private String categoryName;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShopCategoryMap> shopCategoryMaps = new ArrayList<>();
     
     @Column(name = "phone")
     private String phone;
