@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString // 디버깅
-public class AdminShopUpdateDto {
+public class AdminShopUpdateRequest {
 
     private String name;
     private String phone;

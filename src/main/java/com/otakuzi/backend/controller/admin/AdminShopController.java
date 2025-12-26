@@ -2,8 +2,7 @@ package com.otakuzi.backend.controller.admin;
 
 import com.otakuzi.backend.dto.admin.AdminShopCreateRequest;
 import com.otakuzi.backend.dto.admin.AdminShopResponse;
-import com.otakuzi.backend.dto.admin.AdminShopUpdateDto;
-import com.otakuzi.backend.entity.Shop;
+import com.otakuzi.backend.dto.admin.AdminShopUpdateRequest;
 import com.otakuzi.backend.service.shop.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,7 +47,7 @@ public class AdminShopController {
     @Operation(summary = "매장 수정", description = "해당 매장 정보를 수정합니다.")
     public ResponseEntity<Void> updateShop(
             @PathVariable Long id,
-            @RequestBody AdminShopUpdateDto dto) {
+            @RequestBody AdminShopUpdateRequest dto) {
 
         shopService.updateShopByAdmin(id, dto);
         return ResponseEntity.ok().build();
@@ -56,8 +55,8 @@ public class AdminShopController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "매장 삭제", description = "해당 매장 정보를 삭제합니다.")
-    public ResponseEntity<Void> deleteShop(@PathVariable Long shopId) {
-        shopService.deleteShop(shopId);
+    public ResponseEntity<Void> deleteShop(@PathVariable Long id) {
+        shopService.deleteShop(id);
         return ResponseEntity.ok().build(); // 200 OK
     }
 }

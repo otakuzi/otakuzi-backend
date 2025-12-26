@@ -2,7 +2,7 @@ package com.otakuzi.backend.service.shop;
 
 import com.otakuzi.backend.dto.admin.AdminShopCreateRequest;
 import com.otakuzi.backend.dto.admin.AdminShopResponse;
-import com.otakuzi.backend.dto.admin.AdminShopUpdateDto;
+import com.otakuzi.backend.dto.admin.AdminShopUpdateRequest;
 import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;
@@ -27,16 +27,16 @@ public class ShopService {
     //  1. 조회 로직 (Read)
     // ==========================================
 
-    /** 전체 상점 조회 (DTO로 변환해서 리턴) */
-    public List<ShopResponse> getAllShops() {
-        return shopRepository.findAll().stream()
-                .map(ShopResponse::new)
-                .collect(Collectors.toList());
-    }
+    /** 이름, 카테고리 조건 검색 */
+    public List<ShopResponse> searchShops(String name, List<String> categories) {
 
-    /** 이름 포함 검색 */
-    public List<ShopResponse> getShopsByNameContaining(String name) {
-        return shopRepository.findByNameContaining(name).stream()
+        if (categories != null && categories.isEmpty()) {
+            categories = null;
+        }
+
+        List<Shop> shops = shopRepository.searchByFilters(name, categories);
+
+        return shops.stream()
                 .map(ShopResponse::new)
                 .collect(Collectors.toList());
     }
@@ -79,7 +79,7 @@ public class ShopService {
 
     /** [수정] 관리자용 상점 수정 */
     @Transactional
-    public void updateShopByAdmin(Long id, AdminShopUpdateDto dto) {
+    public void updateShopByAdmin(Long id, AdminShopUpdateRequest dto) {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("상점 정보가 없습니다."));
 
