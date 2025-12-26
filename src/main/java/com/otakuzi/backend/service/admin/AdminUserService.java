@@ -42,7 +42,7 @@ public class AdminUserService {
         user.updateAdminInfo(
             dto.getEmail(),
             dto.getProfileImage(),
-            dto.getUserType(),
+            dto.getType(),
             dto.getIsDeleted()
         );
 

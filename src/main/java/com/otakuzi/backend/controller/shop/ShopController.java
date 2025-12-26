@@ -1,5 +1,6 @@
 package com.otakuzi.backend.controller.shop;
 
+import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.service.shop.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +23,7 @@ public class ShopController {
     @Operation(summary = "매장 전체 조회", description = "모든 매장 목록을 조회하거나, 이름 또는 카테고리로 검색합니다.") // 2. API 설명
     // 전체 조회
     @GetMapping
-    public ResponseEntity<List<Shop>> getAllShops(
+    public ResponseEntity<List<ShopResponse>> getAllShops(
         @Parameter(description = "검색할 매장 이름 (부분 일치)") // 3. 파라미터 설명
         @RequestParam(required = false) String name,
         @Parameter(description = "검색할 매장 카테고리 (일치)") // 3. 파라미터 설명
@@ -31,9 +32,7 @@ public class ShopController {
         if (name != null) {
             return ResponseEntity.ok(shopService.getShopsByNameContaining(name));
         }
-        if (categoryName != null) {
-            return ResponseEntity.ok(shopService.getShopsByCategoryName(categoryName));
-        }
+
         return ResponseEntity.ok(shopService.getAllShops());
     }
 }
