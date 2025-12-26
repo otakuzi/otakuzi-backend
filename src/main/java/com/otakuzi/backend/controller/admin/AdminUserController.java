@@ -27,13 +27,13 @@ public class AdminUserController {
         @Parameter(description = "검색할 사용자 닉네임(부분 일치)")
         @RequestParam(required = false) String nickname,
         @Parameter(description = "검색할 권한 사용자")
-        @RequestParam(required = false) UserType userType
+        @RequestParam(required = false) UserType type
     ) {
         if (nickname != null) {
             return ResponseEntity.ok(adminUserService.adminGetUsersByNickname(nickname));
         }
-        if (userType != null) {
-            return ResponseEntity.ok(adminUserService.adminGetUsersByUserType(userType));
+        if (type != null) {
+            return ResponseEntity.ok(adminUserService.adminGetUsersByUserType(type));
         }
 
         return ResponseEntity.ok(adminUserService.adminGetAllUsers());

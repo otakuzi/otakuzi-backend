@@ -27,8 +27,8 @@ public class AdminUserService {
         return userRepository.findAllByNickname(nickname);
     }
 
-    public List<User> adminGetUsersByUserType(UserType userType) {
-        return userRepository.findAllByUserType(userType);
+    public List<User> adminGetUsersByUserType(UserType type) {
+        return userRepository.findAllBytype(type);
     }
 
     @Transactional
@@ -42,7 +42,7 @@ public class AdminUserService {
         user.updateAdminInfo(
             dto.getEmail(),
             dto.getProfileImage(),
-            dto.getUserType(),
+            dto.getType(),
             dto.getIsDeleted()
         );
 

@@ -22,7 +22,7 @@ public class PrincipalDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // Enum 이름 앞에 "ROLE_"을 붙이는 것이 관례입니다.
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserType().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getType().name()));
         return authorities;
     }
 

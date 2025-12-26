@@ -1,6 +1,7 @@
 package com.otakuzi.backend.entity;
 
 import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.entity.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
         @UniqueConstraint(name = "uk_social_login", columnNames = {"provider", "provider_id"})
 })
 
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class User {
 
     @Enumerated(EnumType.STRING) // DB에 문자열(ADMIN, USER...)로 저장
     @Column(name = "user_type", nullable = false)
-    private UserType userType;
+    private UserType type;
 
     @Column(name = "email")
     private String email;
@@ -56,9 +57,9 @@ public class User {
     private Boolean isDeleted;
 
     @Builder
-    public User(UserType userType, String email, String nickname, String profileImage,
+    public User(UserType type, String email, String nickname, String profileImage,
                 String phoneNumber, String provider, String providerId) {
-        this.userType = userType != null ? userType : UserType.USER; // 기본값 설정
+        this.type = type != null ? type : UserType.USER; // 기본값 설정
         this.email = email;
         this.nickname = nickname;
         this.profileImage = profileImage;
@@ -69,10 +70,10 @@ public class User {
     }
 
     // 관리자 페이지 수정 메소드
-    public void updateAdminInfo(String email, String profileImage, UserType userType, Boolean isDeleted) {
+    public void updateAdminInfo(String email, String profileImage, UserType type, Boolean isDeleted) {
         if (email != null) this.email = email;
         if (profileImage != null) this.profileImage = profileImage;
-        if (userType != null) this.userType = userType;
+        if (type != null) this.type = type;
         if (isDeleted != null) this.isDeleted = isDeleted;
     }
 

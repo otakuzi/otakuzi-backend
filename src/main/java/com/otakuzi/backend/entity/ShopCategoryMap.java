@@ -19,11 +19,11 @@ public class ShopCategoryMap {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_category_id")
-    private ShopCategory shopCategory;
+    private ShopCategory category;
 
-    public ShopCategoryMap(Shop shop, ShopCategory shopCategory) {
+    public ShopCategoryMap(Shop shop, ShopCategory category) {
         this.shop = shop;
-        this.shopCategory = shopCategory;
+        this.category = category;
     }
 
 }
