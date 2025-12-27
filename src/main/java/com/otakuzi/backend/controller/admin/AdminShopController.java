@@ -5,6 +5,7 @@ import com.otakuzi.backend.dto.admin.AdminShopResponse;
 import com.otakuzi.backend.dto.admin.AdminShopUpdateRequest;
 import com.otakuzi.backend.service.shop.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,23 @@ public class AdminShopController {
     private final ShopService shopService;
 
     @GetMapping
-    @Operation(summary = "매장 조회", description = "매장 정보를 조회합니다.")
-    public ResponseEntity<List<AdminShopResponse>> getAllShops() {
-        List<AdminShopResponse> shops = shopService.getAllShopsForAdmin();
+    @Operation(summary = "매장 조회", description = "조건 없이 호출하면 전체 조회, 조건이 있으면 필터링하여 조회합니다.")
+    public ResponseEntity<List<AdminShopResponse>> getAllShops(
+            @Parameter(description = "검색할 매장 이름")
+            @RequestParam(required = false) String name,
+
+            @Parameter(description = "검색할 매장 카테고리")
+            @RequestParam(required = false) List<String> categories
+    ) {
+        // 방금 만든 메서드 호출
+        List<AdminShopResponse> shops = shopService.searchShopsForAdmin(name, categories);
         return ResponseEntity.ok(shops);
     }
 
-    @GetMapping("/{shopId}")
+    @GetMapping("/{id}")
     @Operation(summary = "매장 조회", description = "특정 매장 정보를 조회합니다.")
-    public ResponseEntity<AdminShopResponse> getShop(@PathVariable Long shopId) {
-        AdminShopResponse shop = shopService.getShopForAdmin(shopId);
+    public ResponseEntity<AdminShopResponse> getShop(@PathVariable Long id) {
+        AdminShopResponse shop = shopService.getShopForAdmin(id);
         return ResponseEntity.ok(shop);
     }
 

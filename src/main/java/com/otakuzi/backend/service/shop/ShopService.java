@@ -41,9 +41,17 @@ public class ShopService {
                 .collect(Collectors.toList());
     }
 
-    /** [관리자용] 전체 조회 */
-    public List<AdminShopResponse> getAllShopsForAdmin() {
-        return shopRepository.findAll().stream()
+    /** [관리자용] 검색 및 목록 조회 (AdminShopResponse 반환) */
+    public List<AdminShopResponse> searchShopsForAdmin(String name, List<String> categories) {
+
+        // 빈 리스트 null 처리 (동적 쿼리 오류 방지)
+        if (categories != null && categories.isEmpty()) {
+            categories = null;
+        }
+
+        List<Shop> shops = shopRepository.searchByFilters(name, categories);
+
+        return shops.stream()
                 .map(AdminShopResponse::new)
                 .collect(Collectors.toList());
     }
