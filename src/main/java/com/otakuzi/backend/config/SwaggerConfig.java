@@ -1,7 +1,10 @@
 package com.otakuzi.backend.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +18,17 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
+        // jwt 설정
+        String jwtSchemeName = "jwtAuth";
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+
+        Components components = new Components()
+                .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
+                        .name(jwtSchemeName)
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT"));
+
         return new OpenAPI()
                 .servers(List.of(
                         new Server().url("http://localhost:8080").description("Local Server"),
@@ -23,7 +37,9 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Otakuzi API 명세서")
                         .description("오타쿠지 프로젝트 API 문서입니다.")
-                        .version("1.0.0"));
+                        .version("1.0.0"))
+                .addSecurityItem(securityRequirement)
+                .components(components);
     }
 
     // ★ 그룹 1: 일반 사용자용 (기본으로 보여줄 것)
