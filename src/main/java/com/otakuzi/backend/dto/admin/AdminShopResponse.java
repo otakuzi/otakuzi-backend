@@ -1,12 +1,16 @@
 package com.otakuzi.backend.dto.admin;
 
 import com.otakuzi.backend.entity.Shop;
+import com.otakuzi.backend.entity.ShopCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@NoArgsConstructor
 public class AdminShopResponse {
     private Long shopId;
     private String name;
@@ -17,7 +21,8 @@ public class AdminShopResponse {
     private String y;
     private String placeUrl;
 
-    private List<String> shopCategories;
+    private List<String> categoryNames;
+    private List<Long> categoryIds;
 
     public AdminShopResponse(Shop shop) {
         this.shopId = shop.getId();
@@ -29,8 +34,12 @@ public class AdminShopResponse {
         this.y = shop.getY();
         this.placeUrl = shop.getPlaceUrl();
 
-        this.shopCategories = shop.getShopCategoryMaps().stream()
+        this.categoryNames = shop.getShopCategoryMaps().stream()
                 .map(map -> map.getCategory().getName())
+                .collect(Collectors.toList());
+
+        this.categoryIds = shop.getShopCategoryMaps().stream()
+                .map(map -> map.getCategory().getId())
                 .collect(Collectors.toList());
     }
 
@@ -39,5 +48,10 @@ public class AdminShopResponse {
     public static class CategoryDto {
         private Long id;
         private String name;
+
+        public CategoryDto(ShopCategory category) {
+            this.id = category.getId();
+            this.name = category.getName();
+        }
     }
 }

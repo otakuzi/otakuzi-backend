@@ -9,6 +9,7 @@ import com.otakuzi.backend.entity.ShopCategory;
 import com.otakuzi.backend.repository.ShopCategoryRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,14 @@ public class ShopService {
         Shop shop = shopRepository.findById(shopId)
                 .orElseThrow(() -> new IllegalArgumentException("상점 없음"));
         return new AdminShopResponse(shop);
+    }
+
+    @Cacheable(value = "categories")
+    @Transactional(readOnly = true)
+    public List<AdminShopResponse.CategoryDto> getAllCategories() {
+        return shopCategoryRepository.findAll().stream()
+                .map(AdminShopResponse.CategoryDto::new)
+                .collect(Collectors.toList());
     }
 
     // ==========================================

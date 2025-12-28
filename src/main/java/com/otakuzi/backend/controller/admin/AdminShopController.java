@@ -67,4 +67,10 @@ public class AdminShopController {
         shopService.deleteShop(id);
         return ResponseEntity.ok().build(); // 200 OK
     }
+
+    @GetMapping("/categories")
+    @Operation(summary = "카테고리 조회", description = "모든 매장 카테고리를 조회합니다.")
+    public ResponseEntity<List<AdminShopResponse.CategoryDto>> getCategories() {
+        return ResponseEntity.ok(shopService.getAllCategories());
+    }
 }
