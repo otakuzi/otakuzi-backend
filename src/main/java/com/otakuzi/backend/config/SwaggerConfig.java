@@ -2,16 +2,24 @@ package com.otakuzi.backend.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
+
 public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
+                .servers(List.of(
+                        new Server().url("http://localhost:8080").description("Local Server"),
+                        new Server().url("https://dev-api.otakuim.com").description("Dev Server")
+                ))
                 .info(new Info()
                         .title("Otakuzi API 명세서")
                         .description("오타쿠지 프로젝트 API 문서입니다.")
