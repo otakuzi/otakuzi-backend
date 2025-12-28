@@ -33,9 +33,15 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // 1. 요청에서 "accessToken" 쿠키 찾기
         String token = null;
-        if (request.getCookies() != null) {
+
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            token = bearerToken.substring(7);
+        }
+
+        if (token == null && request.getCookies() != null) {
             token = Arrays.stream(request.getCookies())
-                    .filter(c -> c.getName().equals("accessToken"))
+                    .filter(c -> c.getName().equals("accessToken")) // ★ 중요: 쿠키 이름 확인!
                     .findFirst()
                     .map(Cookie::getValue)
                     .orElse(null);
