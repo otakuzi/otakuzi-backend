@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class AdminShopResponse {
-    private Long shopId;
+    private Long id;
     private String name;
     private String phone;
     private String addressName;
@@ -25,7 +25,7 @@ public class AdminShopResponse {
     private List<Long> categoryIds;
 
     public AdminShopResponse(Shop shop) {
-        this.shopId = shop.getId();
+        this.id = shop.getId();
         this.name = shop.getName();
         this.phone = shop.getPhone();
         this.addressName = shop.getAddressName();
