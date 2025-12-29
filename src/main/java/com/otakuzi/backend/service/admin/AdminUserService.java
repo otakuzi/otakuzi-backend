@@ -27,8 +27,8 @@ public class AdminUserService {
         return userRepository.findAllByNickname(nickname);
     }
 
-    public List<User> adminGetUsersByUserType(UserType type) {
-        return userRepository.findAllBytype(type);
+    public List<User> adminGetUsersByUserType(UserType userType) {
+        return userRepository.findAllByType(userType);
     }
 
     @Transactional

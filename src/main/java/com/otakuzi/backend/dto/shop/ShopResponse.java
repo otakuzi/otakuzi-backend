@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ShopResponse {
     private long shopId;
-    private String placeName;
+    private String name;
     private List<String> shopCategories;
     private String phone;
     private String addressName;
@@ -19,7 +19,7 @@ public class ShopResponse {
 
     public ShopResponse(Shop shop) {
         this.shopId = shop.getId();
-        this.placeName = shop.getName();
+        this.name = shop.getName();
         this.phone = shop.getPhone();
         this.addressName = shop.getAddressName();
         this.roadAddressName = shop.getRoadAddressName();

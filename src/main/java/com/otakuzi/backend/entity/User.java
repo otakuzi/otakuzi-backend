@@ -70,10 +70,10 @@ public class User extends BaseTime {
     }
 
     // 관리자 페이지 수정 메소드
-    public void updateAdminInfo(String email, String profileImage, UserType type, Boolean isDeleted) {
+    public void updateAdminInfo(String email, String profileImage, UserType userType, Boolean isDeleted) {
         if (email != null) this.email = email;
         if (profileImage != null) this.profileImage = profileImage;
-        if (type != null) this.type = type;
+        if (userType != null) this.type = userType;
         if (isDeleted != null) this.isDeleted = isDeleted;
     }
 

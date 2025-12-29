@@ -22,7 +22,7 @@ public class AdminUserController {
     private final AdminUserService adminUserService;
 
     @GetMapping
-    @Operation(summary = "사용자 수정", description = "사용자를 전체 조회합니다.")
+    @Operation(summary = "사용자 조회", description = "사용자를 전체 조회합니다.")
     public ResponseEntity<List<User>> getAllUsers(
         @Parameter(description = "검색할 사용자 닉네임(부분 일치)")
         @RequestParam(required = false) String nickname,

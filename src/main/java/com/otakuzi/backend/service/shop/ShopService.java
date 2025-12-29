@@ -2,13 +2,14 @@ package com.otakuzi.backend.service.shop;
 
 import com.otakuzi.backend.dto.admin.AdminShopCreateRequest;
 import com.otakuzi.backend.dto.admin.AdminShopResponse;
-import com.otakuzi.backend.dto.admin.AdminShopUpdateDto;
+import com.otakuzi.backend.dto.admin.AdminShopUpdateRequest;
 import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;
 import com.otakuzi.backend.repository.ShopCategoryRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,16 +28,31 @@ public class ShopService {
     //  1. 조회 로직 (Read)
     // ==========================================
 
-    /** 전체 상점 조회 (DTO로 변환해서 리턴) */
-    public List<ShopResponse> getAllShops() {
-        return shopRepository.findAll().stream()
+    /** 이름, 카테고리 조건 검색 */
+    public List<ShopResponse> searchShops(String name, List<String> categories) {
+
+        if (categories != null && categories.isEmpty()) {
+            categories = null;
+        }
+
+        List<Shop> shops = shopRepository.searchByFilters(name, categories);
+
+        return shops.stream()
                 .map(ShopResponse::new)
                 .collect(Collectors.toList());
     }
 
-    /** [관리자용] 전체 조회 */
-    public List<AdminShopResponse> getAllShopsForAdmin() {
-        return shopRepository.findAll().stream()
+    /** [관리자용] 검색 및 목록 조회 (AdminShopResponse 반환) */
+    public List<AdminShopResponse> searchShopsForAdmin(String name, List<String> categories) {
+
+        // 빈 리스트 null 처리 (동적 쿼리 오류 방지)
+        if (categories != null && categories.isEmpty()) {
+            categories = null;
+        }
+
+        List<Shop> shops = shopRepository.searchByFilters(name, categories);
+
+        return shops.stream()
                 .map(AdminShopResponse::new)
                 .collect(Collectors.toList());
     }
@@ -48,9 +64,12 @@ public class ShopService {
         return new AdminShopResponse(shop);
     }
 
-    /** 이름 포함 검색 */
-    public List<ShopResponse> getShopsByNameContaining(String name) {
-        return shopRepository.findBynameContaining(name);
+    @Cacheable(value = "categories")
+    @Transactional(readOnly = true)
+    public List<AdminShopResponse.CategoryDto> getAllCategories() {
+        return shopCategoryRepository.findAll().stream()
+                .map(AdminShopResponse.CategoryDto::new)
+                .collect(Collectors.toList());
     }
 
     // ==========================================
@@ -77,7 +96,7 @@ public class ShopService {
 
     /** [수정] 관리자용 상점 수정 */
     @Transactional
-    public void updateShopByAdmin(Long id, AdminShopUpdateDto dto) {
+    public void updateShopByAdmin(Long id, AdminShopUpdateRequest dto) {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("상점 정보가 없습니다."));
 
