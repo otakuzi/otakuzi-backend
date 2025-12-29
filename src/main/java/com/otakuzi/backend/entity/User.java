@@ -22,7 +22,7 @@ public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @Enumerated(EnumType.STRING) // DB에 문자열(ADMIN, USER...)로 저장
     @Column(name = "user_type", nullable = false)

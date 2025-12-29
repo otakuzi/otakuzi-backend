@@ -34,7 +34,7 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public String getUsername() {
         // 시큐리티가 식별할 ID (우리는 PK인 userId를 사용)
-        return String.valueOf(user.getUserId());
+        return String.valueOf(user.getId());
     }
 
     // 우리 유저 객체를 꺼내쓸 때 필요함
