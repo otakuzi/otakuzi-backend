@@ -1,11 +1,8 @@
 package com.otakuzi.backend.service.shop;
 
-import com.otakuzi.backend.dto.shop.AdminShopCreateRequest;
 import com.otakuzi.backend.dto.shop.AdminShopResponse;
-import com.otakuzi.backend.dto.shop.AdminShopUpdateRequest;
-import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.ShopCategory;
+import com.otakuzi.backend.mapper.shop.ShopMapper;
 import com.otakuzi.backend.repository.ShopCategoryRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,35 +11,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ShopService {
+public class AdminShopService {
 
     private final ShopRepository shopRepository;
     private final ShopCategoryRepository shopCategoryRepository;
+    private final ShopMapper shopMapper;
 
-    // ==========================================
-    //  1. 조회 로직 (Read)
-    // ==========================================
+    public List<AdminShopResponse> getAllShops() {
+        List<Shop> shops = shopRepository.findAll();
 
-    /** 이름, 카테고리 조건 검색 */
-    public List<ShopResponse> searchShops(String name, List<String> categories) {
-
-        if (categories != null && categories.isEmpty()) {
-            categories = null;
-        }
-
-        List<Shop> shops = shopRepository.searchByFilters(name, categories);
-
-        return shops.stream()
-                .map(ShopResponse::new)
-                .collect(Collectors.toList());
+        return shopMapper.toAdminResponseList(shops);
     }
 
-    /** [관리자용] 검색 및 목록 조회 (AdminShopResponse 반환) */
     public List<AdminShopResponse> searchShopsForAdmin(String name, List<String> categories) {
 
         // 빈 리스트 null 처리 (동적 쿼리 오류 방지)
@@ -52,12 +36,10 @@ public class ShopService {
 
         List<Shop> shops = shopRepository.searchByFilters(name, categories);
 
-        return shops.stream()
-                .map(AdminShopResponse::new)
-                .collect(Collectors.toList());
+        return shopMapper.toAdminResponseList(shops);
     }
 
-    /** [관리자용] 상세 조회 (수정 화면용) */
+    @Transactional
     public AdminShopResponse getShopForAdmin(Long shopId) {
         Shop shop = shopRepository.findById(shopId)
                 .orElseThrow(() -> new IllegalArgumentException("상점 없음"));

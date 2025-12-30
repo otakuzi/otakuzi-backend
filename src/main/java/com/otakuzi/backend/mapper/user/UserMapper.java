@@ -1,4 +1,4 @@
-package com.otakuzi.backend.mapper;
+package com.otakuzi.backend.mapper.user;
 
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;

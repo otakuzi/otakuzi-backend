@@ -4,7 +4,7 @@ import com.otakuzi.backend.constant.UserType;
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;
 import com.otakuzi.backend.entity.User;
-import com.otakuzi.backend.mapper.UserMapper;
+import com.otakuzi.backend.mapper.user.UserMapper;
 import com.otakuzi.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
