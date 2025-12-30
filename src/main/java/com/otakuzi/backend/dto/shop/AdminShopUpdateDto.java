@@ -1,4 +1,4 @@
-package com.otakuzi.backend.dto.admin;
+package com.otakuzi.backend.dto.shop;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString // 디버깅
-public class AdminShopUpdateRequest {
+public class AdminShopUpdateDto {
 
     private String name;
     private String phone;

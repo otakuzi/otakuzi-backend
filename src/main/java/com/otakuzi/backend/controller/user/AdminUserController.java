@@ -1,7 +1,7 @@
-package com.otakuzi.backend.controller.admin;
+package com.otakuzi.backend.controller.user;
 
 import com.otakuzi.backend.constant.UserType;
-import com.otakuzi.backend.dto.admin.AdminUserUpdateDto;
+import com.otakuzi.backend.dto.user.AdminUserUpdateDto;
 import com.otakuzi.backend.entity.User;
 import com.otakuzi.backend.service.admin.AdminUserService;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,4 +1,4 @@
-package com.otakuzi.backend.dto.admin;
+package com.otakuzi.backend.dto.shop;
 
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;

@@ -1,4 +1,4 @@
-package com.otakuzi.backend.dto.admin;
+package com.otakuzi.backend.dto.user;
 
 import com.otakuzi.backend.constant.UserType;
 import com.otakuzi.backend.entity.User;
