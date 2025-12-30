@@ -1,8 +1,8 @@
 package com.otakuzi.backend.service.shop;
 
-import com.otakuzi.backend.dto.admin.AdminShopCreateRequest;
-import com.otakuzi.backend.dto.admin.AdminShopResponse;
-import com.otakuzi.backend.dto.admin.AdminShopUpdateRequest;
+import com.otakuzi.backend.dto.shop.AdminShopCreateRequest;
+import com.otakuzi.backend.dto.shop.AdminShopResponse;
+import com.otakuzi.backend.dto.shop.AdminShopUpdateRequest;
 import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;
