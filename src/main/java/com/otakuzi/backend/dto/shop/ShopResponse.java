@@ -16,19 +16,4 @@ public class ShopResponse {
     private String x;  // 경도(longitude)
     private String y;  // 위도(latitude)
     private String placeUrl;
-
-    public ShopResponse(Shop shop) {
-        this.shopId = shop.getId();
-        this.name = shop.getName();
-        this.phone = shop.getPhone();
-        this.addressName = shop.getAddressName();
-        this.roadAddressName = shop.getRoadAddressName();
-        this.x = shop.getX();
-        this.y = shop.getY();
-        this.placeUrl = shop.getPlaceUrl();
-
-        this.shopCategories = shop.getShopCategoryMaps().stream()
-                .map(map -> map.getCategory().getName())
-                .collect(Collectors.toList());
-    }
 }
