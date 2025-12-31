@@ -8,7 +8,7 @@ import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
+public interface AdminUserMapper {
     // Entity -> DTO 변환
     AdminUserResponse toAdminResponse(User user);
 
