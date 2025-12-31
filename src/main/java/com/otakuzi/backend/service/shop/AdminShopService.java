@@ -7,7 +7,7 @@ import com.otakuzi.backend.dto.shop.ShopCategoryResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;
 import com.otakuzi.backend.mapper.shop.ShopCategoryMapper;
-import com.otakuzi.backend.mapper.shop.ShopMapper;
+import com.otakuzi.backend.mapper.shop.AdminShopMapper;
 import com.otakuzi.backend.repository.ShopCategoryRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +24,8 @@ public class AdminShopService {
 
     private final ShopRepository shopRepository;
     private final ShopCategoryRepository shopCategoryRepository;
-    private final ShopMapper shopMapper;
+    private final AdminShopMapper adminShopMapper;
     private final ShopCategoryMapper shopCategoryMapper;
-
-    public List<AdminShopResponse> getAllShops() {
-        List<Shop> shops = shopRepository.findAll();
-
-        return shopMapper.toAdminResponseList(shops);
-    }
 
     public List<AdminShopResponse> searchShopsForAdmin(String name, List<String> categories) {
 
@@ -42,7 +36,7 @@ public class AdminShopService {
 
         List<Shop> shops = shopRepository.searchByFilters(name, categories);
 
-        return shopMapper.toAdminResponseList(shops);
+        return adminShopMapper.toAdminResponseList(shops);
     }
 
     @Transactional
@@ -50,7 +44,7 @@ public class AdminShopService {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("상점 없음"));
 
-        return shopMapper.toAdminResponse(shop);
+        return adminShopMapper.toAdminResponse(shop);
     }
 
     @Cacheable(value = "categories")
@@ -62,7 +56,7 @@ public class AdminShopService {
 
     @Transactional
     public Long createShopByAdmin(AdminShopCreateRequest request) {
-        Shop shop = shopMapper.toEntity(request);
+        Shop shop = adminShopMapper.toEntity(request);
 
         connectCategories(shop, request.getCategoryIds());
 
@@ -74,13 +68,14 @@ public class AdminShopService {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("상점 정보가 없습니다."));
 
+        adminShopMapper.updateFromDto(dto, shop);
+
         if (dto.getCategoryIds() != null) {
             shop.getShopCategoryMaps().clear();
             connectCategories(shop, dto.getCategoryIds());
         }
     }
 
-    /** [삭제] 관리자용 상점 삭제 */
     @Transactional
     public void deleteShop(Long id) {
         Shop shop = shopRepository.findById(id)
@@ -89,15 +84,16 @@ public class AdminShopService {
         shopRepository.delete(shop);
     }
 
-    // ==========================================
-    //  3. 내부 편의 메서드 (중복 제거용)
-    // ==========================================
     private void connectCategories(Shop shop, List<Long> categoryIds) {
         if (categoryIds == null || categoryIds.isEmpty()) return;
 
-        for (Long id : categoryIds) {
-            ShopCategory category = shopCategoryRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("없는 카테고리입니다."));
+        List<ShopCategory> categories = shopCategoryRepository.findAllById(categoryIds);
+
+        if (categories.size() != categoryIds.size()) {
+            throw new IllegalArgumentException("존재하지 않는 카테고리가 포함되어 있습니다.");
+        }
+
+        for (ShopCategory category : categories) {
             shop.addCategory(category);
         }
     }

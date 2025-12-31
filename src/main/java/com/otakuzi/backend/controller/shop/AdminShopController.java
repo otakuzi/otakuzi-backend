@@ -3,7 +3,8 @@ package com.otakuzi.backend.controller.shop;
 import com.otakuzi.backend.dto.shop.AdminShopCreateRequest;
 import com.otakuzi.backend.dto.shop.AdminShopResponse;
 import com.otakuzi.backend.dto.shop.AdminShopUpdateRequest;
-import com.otakuzi.backend.service.shop.ShopService;
+import com.otakuzi.backend.dto.shop.ShopCategoryResponse;
+import com.otakuzi.backend.service.shop.AdminShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminShopController {
 
-    private final ShopService shopService;
+    private final AdminShopService adminShopService;
 
     @GetMapping
     @Operation(summary = "매장 조회", description = "조건 없이 호출하면 전체 조회, 조건이 있으면 필터링하여 조회합니다.")
@@ -32,21 +33,21 @@ public class AdminShopController {
             @RequestParam(required = false) List<String> categories
     ) {
         // 방금 만든 메서드 호출
-        List<AdminShopResponse> shops = shopService.searchShopsForAdmin(name, categories);
+        List<AdminShopResponse> shops = adminShopService.searchShopsForAdmin(name, categories);
         return ResponseEntity.ok(shops);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "매장 조회", description = "특정 매장 정보를 조회합니다.")
     public ResponseEntity<AdminShopResponse> getShop(@PathVariable Long id) {
-        AdminShopResponse shop = shopService.getShopForAdmin(id);
+        AdminShopResponse shop = adminShopService.getShopForAdmin(id);
         return ResponseEntity.ok(shop);
     }
 
     @PostMapping
     @Operation(summary = "매장 추가", description = "매장 정보를 새로 추가합니다.")
     public ResponseEntity<Long> createShop(@RequestBody AdminShopCreateRequest request) {
-        Long id = shopService.createShopByAdmin(request);
+        Long id = adminShopService.createShopByAdmin(request);
 
         return ResponseEntity.created(URI.create("/api/admin/shops/" + id)).body(id);
     }
@@ -57,20 +58,20 @@ public class AdminShopController {
             @PathVariable Long id,
             @RequestBody AdminShopUpdateRequest dto) {
 
-        shopService.updateShopByAdmin(id, dto);
+        adminShopService.updateShopByAdmin(id, dto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "매장 삭제", description = "해당 매장 정보를 삭제합니다.")
     public ResponseEntity<Void> deleteShop(@PathVariable Long id) {
-        shopService.deleteShop(id);
+        adminShopService.deleteShop(id);
         return ResponseEntity.ok().build(); // 200 OK
     }
 
     @GetMapping("/categories")
     @Operation(summary = "카테고리 조회", description = "모든 매장 카테고리를 조회합니다.")
-    public ResponseEntity<List<AdminShopResponse.CategoryDto>> getCategories() {
-        return ResponseEntity.ok(shopService.getAllCategories());
+    public ResponseEntity<List<ShopCategoryResponse>> getCategories() {
+        return ResponseEntity.ok(adminShopService.getAllCategories());
     }
 }

@@ -4,7 +4,7 @@ import com.otakuzi.backend.constant.UserType;
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;
 import com.otakuzi.backend.entity.User;
-import com.otakuzi.backend.mapper.user.UserMapper;
+import com.otakuzi.backend.mapper.user.AdminUserMapper;
 import com.otakuzi.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,31 +18,31 @@ import java.util.List;
 public class AdminUserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final AdminUserMapper adminUserMapper;
 
     public List<AdminUserResponse> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        return userMapper.toAdminResponseList(users);
+        return adminUserMapper.toAdminResponseList(users);
     }
 
     public AdminUserResponse getUserDetail(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자 정보 없음"));
 
-        return userMapper.toAdminResponse(user);
+        return adminUserMapper.toAdminResponse(user);
     }
 
     public List<AdminUserResponse> adminGetUsersByNickname(String nickname) {
         List<User> users = userRepository.findAllByNickname(nickname);
 
-        return userMapper.toAdminResponseList(users);
+        return adminUserMapper.toAdminResponseList(users);
     }
 
     public List<AdminUserResponse> adminGetUsersByUserType(UserType type) {
         List<User> users = userRepository.findAllByType(type);
 
-        return userMapper.toAdminResponseList(users);
+        return adminUserMapper.toAdminResponseList(users);
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class AdminUserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자 정보 없음"));
 
-        userMapper.updateFromDto(request, user);
+        adminUserMapper.updateFromDto(request, user);
     }
 
     @Transactional

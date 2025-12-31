@@ -1,11 +1,10 @@
 package com.otakuzi.backend.service.shop;
 
-import com.otakuzi.backend.dto.shop.AdminShopCreateRequest;
-import com.otakuzi.backend.dto.shop.AdminShopResponse;
-import com.otakuzi.backend.dto.shop.AdminShopUpdateRequest;
-import com.otakuzi.backend.dto.shop.ShopResponse;
+import com.otakuzi.backend.dto.shop.*;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopCategory;
+import com.otakuzi.backend.mapper.shop.ShopCategoryMapper;
+import com.otakuzi.backend.mapper.shop.ShopMapper;
 import com.otakuzi.backend.repository.ShopCategoryRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +21,9 @@ public class ShopService {
 
     private final ShopRepository shopRepository;
     private final ShopCategoryRepository shopCategoryRepository;
+    private final ShopMapper shopMapper;
+    private final ShopCategoryMapper shopCategoryMapper;
 
-    // ==========================================
-    //  1. 조회 로직 (Read)
-    // ==========================================
-
-    /** 이름, 카테고리 조건 검색 */
     public List<ShopResponse> searchShops(String name, List<String> categories) {
 
         if (categories != null && categories.isEmpty()) {
@@ -37,101 +32,27 @@ public class ShopService {
 
         List<Shop> shops = shopRepository.searchByFilters(name, categories);
 
-        return shops.stream()
-                .map(ShopResponse::new)
-                .collect(Collectors.toList());
-    }
-
-    /** [관리자용] 검색 및 목록 조회 (AdminShopResponse 반환) */
-    public List<AdminShopResponse> searchShopsForAdmin(String name, List<String> categories) {
-
-        // 빈 리스트 null 처리 (동적 쿼리 오류 방지)
-        if (categories != null && categories.isEmpty()) {
-            categories = null;
-        }
-
-        List<Shop> shops = shopRepository.searchByFilters(name, categories);
-
-        return shops.stream()
-                .map(AdminShopResponse::new)
-                .collect(Collectors.toList());
-    }
-
-    /** [관리자용] 상세 조회 (수정 화면용) */
-    public AdminShopResponse getShopForAdmin(Long shopId) {
-        Shop shop = shopRepository.findById(shopId)
-                .orElseThrow(() -> new IllegalArgumentException("상점 없음"));
-        return new AdminShopResponse(shop);
+        return shopMapper.toResponseList(shops);
     }
 
     @Cacheable(value = "categories")
     @Transactional(readOnly = true)
-    public List<AdminShopResponse.CategoryDto> getAllCategories() {
-        return shopCategoryRepository.findAll().stream()
-                .map(AdminShopResponse.CategoryDto::new)
-                .collect(Collectors.toList());
+    public List<ShopCategoryResponse> getAllCategories() {
+        List<ShopCategory> categories = shopCategoryRepository.findAll();
+
+        return shopCategoryMapper.toResponseList(categories);
     }
 
-    // ==========================================
-    //  2. 관리자용 생성/수정/삭제 (CUD)
-    // ==========================================
-
-    /** [생성] 관리자용 상점 등록 */
-    @Transactional
-    public Long createShopByAdmin(AdminShopCreateRequest request) {
-        Shop shop = Shop.builder()
-                .name(request.getName())
-                .phone(request.getPhone())
-                .addressName(request.getAddressName())
-                .roadAddressName(request.getRoadAddressName())
-                .x(request.getX())
-                .y(request.getY())
-                .placeUrl(request.getPlaceUrl())
-                .build();
-
-        connectCategories(shop, request.getCategoryIds());
-
-        return shopRepository.save(shop).getId();
-    }
-
-    /** [수정] 관리자용 상점 수정 */
-    @Transactional
-    public void updateShopByAdmin(Long id, AdminShopUpdateRequest dto) {
-        Shop shop = shopRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("상점 정보가 없습니다."));
-
-        if (dto.getName() != null) shop.setName(dto.getName());
-        if (dto.getPhone() != null) shop.setPhone(dto.getPhone());
-        if (dto.getAddressName() != null) shop.setAddressName(dto.getAddressName());
-        if (dto.getRoadAddressName() != null) shop.setRoadAddressName(dto.getRoadAddressName());
-        if (dto.getX() != null) shop.setX(dto.getX());
-        if (dto.getY() != null) shop.setY(dto.getY());
-        if (dto.getPlaceUrl() != null) shop.setPlaceUrl(dto.getPlaceUrl());
-
-        if (dto.getCategoryIds() != null) {
-            shop.getShopCategoryMaps().clear();
-            connectCategories(shop, dto.getCategoryIds());
-        }
-    }
-
-    /** [삭제] 관리자용 상점 삭제 */
-    @Transactional
-    public void deleteShop(Long id) {
-        Shop shop = shopRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("상점 정보가 없습니다."));
-
-        shopRepository.delete(shop);
-    }
-
-    // ==========================================
-    //  3. 내부 편의 메서드 (중복 제거용)
-    // ==========================================
     private void connectCategories(Shop shop, List<Long> categoryIds) {
         if (categoryIds == null || categoryIds.isEmpty()) return;
 
-        for (Long id : categoryIds) {
-            ShopCategory category = shopCategoryRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("없는 카테고리입니다."));
+        List<ShopCategory> categories = shopCategoryRepository.findAllById(categoryIds);
+
+        if (categories.size() != categoryIds.size()) {
+            throw new IllegalArgumentException("존재하지 않는 카테고리가 포함되어 있습니다.");
+        }
+
+        for (ShopCategory category : categories) {
             shop.addCategory(category);
         }
     }

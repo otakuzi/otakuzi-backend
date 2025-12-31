@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AdminUserUpdateRequest {
     private String email;
+    private String nickname;
     private String profileImage;
     private UserType type;
     private Boolean isDeleted;

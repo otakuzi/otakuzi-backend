@@ -1,11 +1,12 @@
 package com.otakuzi.backend.dto.shop;
 
-import com.otakuzi.backend.entity.Shop;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
+@Setter
 public class ShopResponse {
     private long shopId;
     private String name;
