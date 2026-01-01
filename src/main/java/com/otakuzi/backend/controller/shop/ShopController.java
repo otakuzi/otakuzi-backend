@@ -19,9 +19,9 @@ public class ShopController {
     
     private final ShopService shopService;
     
-    @Operation(summary = "매장 전체 조회", description = "조건 없이 호출하면 전체 조회, 조건이 있으면 필터링(AND)하여 조회합니다.")
     // 전체 조회
     @GetMapping
+    @Operation(summary = "매장 전체 조회", description = "조건 없이 호출하면 전체 조회, 조건이 있으면 필터링(AND)하여 조회합니다.")
     public ResponseEntity<List<ShopResponse>> getAllShops(
         @Parameter(description = "검색할 매장 이름 (부분 일치)")
         @RequestParam(required = false) String name,
@@ -29,6 +29,7 @@ public class ShopController {
         @Parameter(description = "검색할 매장 카테고리 (여러개 일치 검색 가능)")
         @RequestParam(required = false) List<String> categories
     ) {
-        return ResponseEntity.ok(shopService.searchShops(name, categories));
+        List<ShopResponse> shops = shopService.searchShops(name, categories);
+        return ResponseEntity.ok(shops);
     }
 }

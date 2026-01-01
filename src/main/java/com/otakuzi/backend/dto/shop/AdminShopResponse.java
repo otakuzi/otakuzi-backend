@@ -15,8 +15,8 @@ public class AdminShopResponse {
     private String phone;
     private String addressName;
     private String roadAddressName;
-    private String x;
-    private String y;
+    private String x;  // 경도(longitude)
+    private String y;  // 위도(latitude)
     private String placeUrl;
 
     private List<ShopCategoryResponse> categories;
