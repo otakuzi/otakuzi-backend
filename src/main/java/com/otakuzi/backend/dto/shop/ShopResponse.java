@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ShopResponse {
-    private long shopId;
+    private Long id;
     private String name;
     private List<String> shopCategories;
     private String phone;
