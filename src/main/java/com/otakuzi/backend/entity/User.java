@@ -1,31 +1,34 @@
 package com.otakuzi.backend.entity;
 
 import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.entity.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(name = "uk_social_login", columnNames = {"provider", "provider_id"})
 })
 
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @Enumerated(EnumType.STRING) // DB에 문자열(ADMIN, USER...)로 저장
     @Column(name = "user_type", nullable = false)
-    private UserType userType;
+    private UserType type;
 
     @Column(name = "email")
     private String email;
@@ -56,9 +59,9 @@ public class User {
     private Boolean isDeleted;
 
     @Builder
-    public User(UserType userType, String email, String nickname, String profileImage,
+    public User(UserType type, String email, String nickname, String profileImage,
                 String phoneNumber, String provider, String providerId) {
-        this.userType = userType != null ? userType : UserType.USER; // 기본값 설정
+        this.type = type != null ? type : UserType.USER; // 기본값 설정
         this.email = email;
         this.nickname = nickname;
         this.profileImage = profileImage;
@@ -68,15 +71,6 @@ public class User {
         this.isDeleted = false; // 기본값
     }
 
-    // 관리자 페이지 수정 메소드
-    public void updateAdminInfo(String email, String profileImage, UserType userType, Boolean isDeleted) {
-        if (email != null) this.email = email;
-        if (profileImage != null) this.profileImage = profileImage;
-        if (userType != null) this.userType = userType;
-        if (isDeleted != null) this.isDeleted = isDeleted;
-    }
-
-    // 로그인 성공 시 실행할 메서드 (더티 체킹으로 DB 업데이트)
     public void updateLoginDate() {
         this.loginAt = LocalDateTime.now();
     }

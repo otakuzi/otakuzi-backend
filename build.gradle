@@ -23,22 +23,46 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// ==========================================
+	// 1. Spring Boot Core & Web
+	// ==========================================
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.mysql:mysql-connector-j' // 순정 MySQL 드라이버 사용
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// ==========================================
+	// 2. Lombok & MapStruct (순서 중요!)
+	// ==========================================
+	// Lombok (가장 먼저)
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	// Actuator & Swagger
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+	// MapStruct (Lombok보다 아래에 있어야 함)
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 
-	// Security
+	// Lombok과 MapStruct 연결 (중간 다리 역할)
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+	// MapStruct Processor (가장 마지막에)
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+	// ==========================================
+	// 3. Database (JPA, MySQL, QueryDSL)
+	// ==========================================
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// QueryDSL
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// ==========================================
+	// 4. Security & Auth (OAuth2, JWT)
+	// ==========================================
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
@@ -47,14 +71,38 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-
-	// 🔥 [수정] 래퍼 삭제하고, AWS SDK만 남김
-	implementation platform('software.amazon.awssdk:bom:2.20.160') // BOM 사용 (버전 관리 편함)
+	// ==========================================
+	// 5. AWS & Utils
+	// ==========================================
+	implementation platform('software.amazon.awssdk:bom:2.20.160')
 	implementation 'software.amazon.awssdk:secretsmanager'
 	implementation 'software.amazon.awssdk:sts'
 
-	// JSON 파싱용 (이미 있겠지만 확실하게)
+	// JSON Parsing
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+	// ==========================================
+	// 6. Documentation (Swagger)
+	// ==========================================
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+}
+
+// 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.
+def querydslDir = layout.buildDirectory.dir("generated/querydsl")
+
+// 2. [소스 등록] "여기에 있는 파일들도 자바 코드처럼 취급해줘"라고 알림
+sourceSets {
+	main.java.srcDirs += [ querydslDir ]
+}
+
+// 3. [컴파일 설정] 자바 컴파일러에게 "Q파일은 저기에 만들어!"라고 명령
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+// 4. [청소 설정] clean 명령어 실행 시 저 폴더도 같이 삭제
+clean.doLast {
+	file(querydslDir).delete()
 }
 
 tasks.named('test') {

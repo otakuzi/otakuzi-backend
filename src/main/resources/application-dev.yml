@@ -12,7 +12,14 @@
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            redirect-uri: https://dev.otakuim.com/oauth/callback/kakao
 
 springdoc:
   api-docs:

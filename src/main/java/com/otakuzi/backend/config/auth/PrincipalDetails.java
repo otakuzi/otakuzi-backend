@@ -22,7 +22,7 @@ public class PrincipalDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // Enum 이름 앞에 "ROLE_"을 붙이는 것이 관례입니다.
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserType().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getType().name()));
         return authorities;
     }
 
@@ -34,7 +34,7 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public String getUsername() {
         // 시큐리티가 식별할 ID (우리는 PK인 userId를 사용)
-        return String.valueOf(user.getUserId());
+        return String.valueOf(user.getId());
     }
 
     // 우리 유저 객체를 꺼내쓸 때 필요함

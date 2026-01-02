@@ -40,3 +40,7 @@ out/
 
 # 시크릿 설정 파일 무시
 application-secret.yml
+
+# QueryDSL generated files (혹시 모르니 명시적으로 추가)
+/src/main/generated/
+/generated/
