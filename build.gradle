@@ -22,6 +22,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 dependencies {
 	// ==========================================
@@ -89,7 +90,7 @@ dependencies {
 	// ==========================================
 	// 7. Validation (Bad Word Filter)
 	// ==========================================
-	implementation 'io.github.vaneproject:bad-word-filtering:1.0.0'
+	// implementation 'com.github.vane-project:bad-word-filtering:master-SNAPSHOT'
 }
 
 // 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.
