@@ -90,7 +90,7 @@ dependencies {
 	// ==========================================
 	// 7. Validation (Bad Word Filter)
 	// ==========================================
-	// implementation 'com.github.vane-project:bad-word-filtering:master-SNAPSHOT'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 // 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.

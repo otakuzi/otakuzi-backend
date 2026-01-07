@@ -71,6 +71,10 @@ public class User extends BaseTime {
         this.isDeleted = false; // 기본값
     }
 
+    public void updateNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
+
     public void updateLoginDate() {
         this.loginAt = LocalDateTime.now();
     }
