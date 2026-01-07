@@ -1,6 +1,6 @@
 package com.otakuzi.backend.entity;
 
-import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.entity.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.Builder;

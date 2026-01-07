@@ -2,7 +2,7 @@ package com.otakuzi.backend.service.user;
 
 import com.otakuzi.backend.entity.User;
 import com.otakuzi.backend.repository.UserRepository;
-import com.otakuzi.backend.util.BadWordValidator;
+import com.otakuzi.backend.global.util.BadWordValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

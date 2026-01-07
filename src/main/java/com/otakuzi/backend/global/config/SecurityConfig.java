@@ -1,6 +1,6 @@
-package com.otakuzi.backend.config;
+package com.otakuzi.backend.global.config;
 
-import com.otakuzi.backend.jwt.JwtFilter;
+import com.otakuzi.backend.global.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

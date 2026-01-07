@@ -1,6 +1,6 @@
 package com.otakuzi.backend.service.user;
 
-import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;
 import com.otakuzi.backend.entity.User;

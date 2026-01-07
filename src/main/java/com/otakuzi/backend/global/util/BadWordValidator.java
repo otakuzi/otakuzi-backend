@@ -1,4 +1,4 @@
-package com.otakuzi.backend.util;
+package com.otakuzi.backend.global.util;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
