@@ -91,6 +91,12 @@ dependencies {
 	// 7. Validation (Bad Word Filter)
 	// ==========================================
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// ==========================================
+	// 7. Test (TDD)
+	// ==========================================
+	testImplementation 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 // 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.
