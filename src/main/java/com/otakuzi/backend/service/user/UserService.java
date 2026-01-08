@@ -28,7 +28,7 @@ public class UserService {
 
         badWordValidator.validate(newNickname);
 
-        if (userRepository.existsByNickname(newNickname)) {
+        if (userRepository.existsByNicknameIgnoreCase(newNickname)) {
             throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
         }
 
