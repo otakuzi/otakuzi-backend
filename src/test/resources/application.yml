@@ -3,11 +3,14 @@ spring:
     activate:
       on-profile: test
 
+  application:
+    name: otakuzi-test
+
   datasource:
     url: "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL"
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: ""
 
   jpa:
     hibernate:
@@ -22,4 +25,36 @@ spring:
       client:
         registration:
           kakao:
-            client-id: "TEST_DUMMY_KEY_1234"
+            client-id: "TEST_KAKAO_CLIENT_ID"
+            client-secret: "TEST_KAKAO_SECRET"
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+            scope:
+              - profile_nickname
+              - account_email
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+  cloud:
+    aws:
+      credentials:
+        access-key: "TEST_ACCESS_KEY"
+        secret-key: "TEST_SECRET_KEY"
+      s3:
+        bucket: "test-bucket"
+      region:
+        static: ap-northeast-2
+      stack:
+        auto: false
+
+jwt:
+  secret: "test_very_long_secret_key_for_security_testing_1234567890"
+
+logging:
+  level:
+    root: INFO
