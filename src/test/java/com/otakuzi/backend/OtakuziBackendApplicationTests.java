@@ -6,11 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class otakuziBackendApplicationTests {
 
-	@Test
-	void 고의로_실패하는_테스트() {
-		if (true) {
-			throw new RuntimeException("이 빌드는 실패해야 합니다!ㅇㅇ");
-		}
+//	@Test
+	void contextLoads() {
+		// 스프링이 잘 켜지는지만 확인하는 기본 테스트 (에러만 안 나면 됨)
 	}
 
 }

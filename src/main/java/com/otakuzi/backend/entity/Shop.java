@@ -27,6 +27,7 @@ public class Shop extends BaseTime {
     private String name;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<ShopCategoryMap> shopCategoryMaps = new ArrayList<>();
     
     @Column(name = "phone")
