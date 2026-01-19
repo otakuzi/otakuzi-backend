@@ -1,6 +1,8 @@
 package com.otakuzi.backend.service.user;
 
+import com.otakuzi.backend.dto.user.UserResponse;
 import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.mapper.user.UserMapper;
 import com.otakuzi.backend.repository.UserRepository;
 import com.otakuzi.backend.global.util.BadWordValidator;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     private final BadWordValidator badWordValidator;
 
+    @Transactional(readOnly = true)
+    public UserResponse getUserInfo(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자 정보 없음"));
+
+        return userMapper.toResponse(user);
+    }
     @Transactional
     public void updateNickname(Long id, String newNickname) {
 
