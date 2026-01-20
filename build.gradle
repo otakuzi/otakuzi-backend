@@ -97,6 +97,7 @@ dependencies {
 	// ==========================================
 	testImplementation 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 // 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.
