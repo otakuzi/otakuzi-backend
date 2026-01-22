@@ -1,6 +1,6 @@
 package com.otakuzi.backend.repository;
 
-import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByProviderAndProviderId(String provider, String providerId);
     List<User> findAllByNickname(String nickname);
     List<User> findAllByType(UserType type);
+    boolean existsByNicknameIgnoreCase(String nickname);
 }

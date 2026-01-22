@@ -22,6 +22,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 dependencies {
 	// ==========================================
@@ -85,6 +86,18 @@ dependencies {
 	// 6. Documentation (Swagger)
 	// ==========================================
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+
+	// ==========================================
+	// 7. Validation (Bad Word Filter)
+	// ==========================================
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// ==========================================
+	// 7. Test (TDD)
+	// ==========================================
+	testImplementation 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 // 1. [변수 설정] 생성된 파일들이 저장될 위치를 정합니다.
@@ -96,7 +109,7 @@ sourceSets {
 }
 
 // 3. [컴파일 설정] 자바 컴파일러에게 "Q파일은 저기에 만들어!"라고 명령
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
 	options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
 }
 

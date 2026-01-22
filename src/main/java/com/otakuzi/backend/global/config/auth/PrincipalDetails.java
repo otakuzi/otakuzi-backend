@@ -1,4 +1,4 @@
-package com.otakuzi.backend.config.auth;
+package com.otakuzi.backend.global.config.auth;
 
 import com.otakuzi.backend.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,5 +63,9 @@ public class PrincipalDetails implements UserDetails {
     public boolean isEnabled() {
         // 탈퇴한 유저(isDeleted = true)라면 로그인 못하게 막음
         return !user.getIsDeleted();
+    }
+
+    public Long getUserId() {
+        return user.getId();
     }
 }

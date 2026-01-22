@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.lang.reflect.Method;
 
 @EnableCaching
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @SpringBootApplication
 public class otakuziBackendApplication {
 	public static void main(String[] args) {

@@ -1,26 +1,19 @@
 package com.otakuzi.backend.dto.user;
 
-import com.otakuzi.backend.global.constant.UserType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class AdminUserResponse {
-
+public class UserResponse {
     private Long id;
-    private UserType type;
     private String email;
     private String nickname;
     private String profileImage;
     private String phoneNumber;
-    private String provider;
     private LocalDateTime createdAt;
-    private LocalDateTime loginAt;
-    private Boolean isDeleted;
-
 }

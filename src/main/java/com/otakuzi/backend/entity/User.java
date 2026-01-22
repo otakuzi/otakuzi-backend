@@ -1,6 +1,6 @@
 package com.otakuzi.backend.entity;
 
-import com.otakuzi.backend.constant.UserType;
+import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.entity.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -69,6 +69,10 @@ public class User extends BaseTime {
         this.provider = provider;
         this.providerId = providerId;
         this.isDeleted = false; // 기본값
+    }
+
+    public void updateNickname(String newNickname) {
+        this.nickname = newNickname;
     }
 
     public void updateLoginDate() {

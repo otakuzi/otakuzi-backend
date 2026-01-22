@@ -1,6 +1,6 @@
-package com.otakuzi.backend.jwt;
+package com.otakuzi.backend.global.jwt;
 
-import com.otakuzi.backend.config.auth.PrincipalDetails;
+import com.otakuzi.backend.global.config.auth.PrincipalDetails;
 import com.otakuzi.backend.entity.User;
 import com.otakuzi.backend.repository.UserRepository;
 import jakarta.servlet.FilterChain;

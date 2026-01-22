@@ -1,4 +1,4 @@
-package com.otakuzi.backend.jwt;
+package com.otakuzi.backend.global.jwt;
 
 import com.otakuzi.backend.dto.auth.TokenDto;
 import io.jsonwebtoken.*;
