@@ -53,6 +53,7 @@ dependencies {
 	// 3. Database (JPA, MySQL, QueryDSL)
 	// ==========================================
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.6.8'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// QueryDSL

@@ -9,6 +9,11 @@
     username: "dummy_name"
     password: "dummy_password"
 
+    hikari:
+      data-source-properties:
+        wrapperPlugins: "secretsManager"
+        secretsManagerSecretId: "${RDS_SECRET_ARN}"
+
   jpa:
     hibernate:
       ddl-auto: validate
