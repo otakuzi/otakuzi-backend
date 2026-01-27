@@ -61,8 +61,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        // 탈퇴한 유저(isDeleted = true)라면 로그인 못하게 막음
-        return !user.getIsDeleted();
+        return !user.isDeleted();
     }
 
     public Long getUserId() {
