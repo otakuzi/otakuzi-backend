@@ -14,7 +14,7 @@ public class ShopCategory {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_category_id")
-    private long id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;

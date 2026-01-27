@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 public class ShopCategoryMap {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id")
+    @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_category_id")
+    @JoinColumn(name = "shop_category_id", nullable = false)
     private ShopCategory category;
 
     public ShopCategoryMap(Shop shop, ShopCategory category) {

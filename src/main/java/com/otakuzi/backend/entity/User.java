@@ -56,7 +56,7 @@ public class User extends BaseTime {
     private LocalDateTime loginAt;
 
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted;
+    private boolean isDeleted;
 
     @Builder
     public User(UserType type, String email, String nickname, String profileImage,
