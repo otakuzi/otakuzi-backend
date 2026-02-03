@@ -8,7 +8,7 @@
     hikari:
       data-source-properties:
         wrapperPlugins: "secretsManager"
-        secretsManagerSecretId: "${RDS_SECRET_ARN}"
+        secretsManagerSecretId: "${RDS_SECRET_PROD}"
 
   jpa:
     hibernate:
