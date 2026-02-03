@@ -1,8 +1,4 @@
 ﻿spring:
-  config:
-    activate:
-      on-profile: prod
-
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     url: ${RDS_URL}

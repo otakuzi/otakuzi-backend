@@ -1,8 +1,4 @@
 ﻿spring:
-  config:
-    activate:
-      on-profile: dev
-
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     # AWS RDS 개발용 엔드포인트
@@ -18,6 +14,7 @@
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
 
   security:
     oauth2:
