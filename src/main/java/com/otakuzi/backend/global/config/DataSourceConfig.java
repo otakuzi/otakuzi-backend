@@ -63,7 +63,7 @@ public class DataSourceConfig {
 
         // 4. DataSource 수동 생성 (이게 진짜 DB 연결 정보가 됨)
         return DataSourceBuilder.create()
-                .driverClassName("com.mysql.cj.jdbc.Driver")
+                .driverClassName("software.amazon.jdbc.Driver")
                 .url(dbUrl)
                 .username(user)
                 .password(password)

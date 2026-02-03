@@ -51,6 +51,7 @@ jobs:
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
               -e RDS_SECRET="${{ secrets.RDS_SECRET }}" \
+              -e RDS_SECRET_ARN="${{ secrets.RDS_SECRET }}" \
               -e KAKAO_CLIENT_ID="${{ secrets.KAKAO_CLIENT_ID }}" \
               -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
               -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
