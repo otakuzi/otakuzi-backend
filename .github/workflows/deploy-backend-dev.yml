@@ -51,6 +51,7 @@ jobs:
               -e TZ=Asia/Seoul \
               -e JAVA_OPTS="-Xms256m -Xmx384m" \
               -e SPRING_PROFILES_ACTIVE=dev \
+              -e SPRING_DATASOURCE_DRIVER_CLASS_NAME=software.amazon.jdbc.Driver \
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
