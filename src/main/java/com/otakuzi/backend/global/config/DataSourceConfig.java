@@ -22,7 +22,7 @@ public class DataSourceConfig {
     private String dbUrl;
 
     // GitHub Secrets의 RDS_SECRET (시크릿 이름)
-    @Value("${RDS_SECRET}")
+    @Value("${RDS_SECRET_DEV:${RDS_SECRET_PROD:}}")
     private String secretName;
 
     @Bean
