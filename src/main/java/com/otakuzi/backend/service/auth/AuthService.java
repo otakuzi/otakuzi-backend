@@ -33,6 +33,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RestTemplate restTemplate = new RestTemplate(); // 외부 API 호출 도구
 
+
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String clientId;
 
