@@ -36,7 +36,6 @@ public class ShopService {
     }
 
     @Cacheable(value = "categories")
-    @Transactional(readOnly = true)
     public List<ShopCategoryResponse> getAllCategories() {
         List<ShopCategory> categories = shopCategoryRepository.findAll();
 
