@@ -50,7 +50,8 @@ jobs:
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e RDS_URL="${{ secrets.RDS_URL }}" \
-              -e RDS_SECRET="${{ secrets.RDS_SECRET }}" \
+              -e RDS_URL_PROD="${{ secrets.RDS_URL_PROD }}" \
+              -e RDS_SECRET_PROD="${{ secrets.RDS_SECRET_PROD }}" \
               -e KAKAO_CLIENT_ID="${{ secrets.KAKAO_CLIENT_ID }}" \
               -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
               -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
@@ -61,5 +62,6 @@ jobs:
               --log-opt awslogs-stream=prod \
               --log-opt awslogs-create-group=true \
               ${{ secrets.DOCKER_USERNAME }}/otakuzi-backend:prod
+              --spring.datasource.driver-class-name=software.amazon.jdbc.Driver
             
             docker image prune -f

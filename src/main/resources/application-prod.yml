@@ -1,22 +1,18 @@
 ﻿spring:
-  config:
-    activate:
-      on-profile: prod
-
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
-    url: ${RDS_URL}
+    url: ${RDS_URL_PROD}
     username: "dummy_name"
     password: "dummy_password"
 
     hikari:
       data-source-properties:
         wrapperPlugins: "secretsManager"
-        secretsManagerSecretId: "${RDS_SECRET_ARN}"
+        secretsManagerSecretId: "${RDS_SECRET_PROD}"
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
 
   security:
