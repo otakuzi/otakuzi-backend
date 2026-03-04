@@ -2,14 +2,13 @@
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     # AWS RDS 개발용 엔드포인트
-    url: ${RDS_URL_DEV}
-    username: "dummy_name"
-    password: "dummy_password" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
+    url: ${RDS_URL_DEV}?useAwsIam=true
+    username: ${DB_USERNAME}
+    password: "" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
 
     hikari:
       data-source-properties:
-        wrapperPlugins: "secretsManager"
-        secretsManagerSecretId: "${RDS_SECRET_DEV}"
+        useAwsIam: "true"
 
   jpa:
     hibernate:

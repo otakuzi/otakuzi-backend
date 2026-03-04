@@ -1,14 +1,14 @@
 ﻿spring:
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
-    url: ${RDS_URL_PROD}
-    username: "dummy_name"
-    password: "dummy_password"
+    # AWS RDS 배포용 엔드포인트
+    url: ${RDS_URL_PROD}?useAwsIam=true
+    username: ${DB_USERNAME}
+    password: "" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
 
     hikari:
       data-source-properties:
-        wrapperPlugins: "secretsManager"
-        secretsManagerSecretId: "${RDS_SECRET_PROD}"
+        useAwsIam: "true"
 
   jpa:
     hibernate:
