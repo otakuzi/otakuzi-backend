@@ -11,10 +11,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Value("${spring.datasource.url}")
+    @Value("${RDS_URL_DEV:${RDS_URL:}}")
     private String dbUrl;
 
-    @Value("${spring.datasource.username}")
+    @Value("${DB_USERNAME}")
     private String username;
 
     @Bean
