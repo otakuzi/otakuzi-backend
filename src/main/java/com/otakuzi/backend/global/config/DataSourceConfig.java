@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Value("${RDS_URL_DEV:${RDS_URL:}}")
+    @Value("${RDS_URL_DEV:${RDS_URL_PROD:${RDS_URL:}}}")
     private String dbUrl;
 
     @Value("${DB_USERNAME}")
@@ -20,6 +20,10 @@ public class DataSourceConfig {
     @Bean
     @Primary
     public DataSource dataSource() {
+
+        System.out.println("🚩 DB Connection Attempt -> URL: " + dbUrl);
+        System.out.println("🚩 DB Connection Attempt -> User: " + username);
+
         return DataSourceBuilder.create()
                 .driverClassName("software.amazon.jdbc.Driver")
                 .url(dbUrl)
