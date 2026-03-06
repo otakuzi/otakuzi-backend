@@ -2,7 +2,7 @@
   datasource:
     driver-class-name: software.amazon.jdbc.Driver
     # AWS RDS 배포용 엔드포인트
-    url: ${RDS_URL_PROD}?useAwsIam=true
+    url: ${RDS_URL_PROD}
     username: ${DB_USERNAME}
     password: "" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
 
