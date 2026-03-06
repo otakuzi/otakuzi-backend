@@ -20,10 +20,6 @@ public class DataSourceConfig {
     @Bean
     @Primary
     public DataSource dataSource() {
-
-        System.out.println("🚩 DB Connection Attempt -> URL: " + dbUrl);
-        System.out.println("🚩 DB Connection Attempt -> User: " + username);
-
         return DataSourceBuilder.create()
                 .driverClassName("software.amazon.jdbc.Driver")
                 .url(dbUrl)
