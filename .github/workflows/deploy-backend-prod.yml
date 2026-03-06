@@ -42,9 +42,10 @@ jobs:
             docker stop backend-prod || true
             docker rm backend-prod || true
             
-            docker run -d -p 8080:8080 --name backend-prod \
+            docker run -d --name backend-prod \
               --restart always \
               --network host \
+              -e SERVER_PORT=8081 \
               -e TZ=Asia/Seoul \
               -e JAVA_OPTS="-Xms256m -Xmx384m" \
               -e SPRING_PROFILES_ACTIVE=prod \

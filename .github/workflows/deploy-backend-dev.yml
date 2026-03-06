@@ -46,9 +46,10 @@ jobs:
             docker rm backend-dev || true
             
             # ⭐ Dev 환경 실행 (포트 8081, 프로필 dev)
-            docker run -d -p 8081:8080 --name backend-dev \
+            docker run -d --name backend-dev \
               --restart always \
               --network host \
+              -e SERVER_PORT=8081 \
               -e TZ=Asia/Seoul \
               -e JAVA_OPTS="-Xms256m -Xmx384m" \
               -e SPRING_PROFILES_ACTIVE=dev \
