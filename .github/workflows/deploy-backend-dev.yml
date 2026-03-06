@@ -58,6 +58,8 @@ jobs:
               -e KAKAO_CLIENT_ID="${{ secrets.KAKAO_CLIENT_ID }}" \
               -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
               -e AWS_REGION="ap-northeast-2" \
+              -e AWS_EC2_METADATA_V1_DISABLED=false \
+              -e AWS_EC2_METADATA_SERVICE_ENDPOINT=http://169.254.169.254 \
               --log-driver=awslogs \
               --log-opt awslogs-region=ap-northeast-2 \
               --log-opt awslogs-group=/otakuzi/app \
