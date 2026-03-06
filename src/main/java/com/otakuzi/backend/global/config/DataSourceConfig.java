@@ -31,7 +31,7 @@ public class DataSourceConfig {
                 .driverClassName("software.amazon.jdbc.Driver")
                 .url(dbUrl)
                 .username(username)
-                .password("")
+                .password(null)
                 .build();
     }
 }
