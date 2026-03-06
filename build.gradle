@@ -54,6 +54,10 @@ dependencies {
 	// ==========================================
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.6.8'
+	// Wrapper 2.6.x 버전은 SDK v2를 기본적으로 활용합니다.
+	implementation 'software.amazon.awssdk:rds:2.25.10'
+	// 인증을 위한 최소한의 공통 모듈
+	implementation 'software.amazon.awssdk:auth:2.25.10'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// QueryDSL

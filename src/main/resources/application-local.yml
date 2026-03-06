@@ -1,9 +1,14 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${RDS_URL}
+    driver-class-name: software.amazon.jdbc.Driver
+    # AWS RDS 개발용 엔드포인트
+    url: ${RDS_URL_DEV}?useAwsIam=true
     username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    password: "" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
+
+    hikari:
+      data-source-properties:
+        useAwsIam: "true"
 
   jpa:
     hibernate:
