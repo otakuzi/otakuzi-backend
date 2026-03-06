@@ -4,7 +4,7 @@
     # AWS RDS 개발용 엔드포인트
     url: ${RDS_URL_DEV}
     username: ${DB_USERNAME}
-    password: "" # 비밀번호는 AWS가 알아서 넣으므로 가짜 값
+    password:
 
     hikari:
       data-source-properties:
