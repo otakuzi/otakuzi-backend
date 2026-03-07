@@ -20,9 +20,8 @@ import static org.mockito.BDDMockito.willAnswer;
 public abstract class BaseControllerTest {
 
     @Autowired
-    protected MockMvc mockMvc; // 자식들이 편하게 쓰라고 protected 선언
+    protected MockMvc mockMvc;
 
-    // 공통으로 필요한 가짜 보안 관련 빈들
     @MockitoBean
     protected JwtTokenProvider jwtTokenProvider;
 

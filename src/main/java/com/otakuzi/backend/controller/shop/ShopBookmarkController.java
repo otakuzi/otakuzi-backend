@@ -23,12 +23,12 @@ public class ShopBookmarkController {
     @PostMapping("{shopId}/bookmarks")
     @Operation(summary = "매장 북마크 토글", description = "즐겨찾기를 없으면 추가, 있으면 삭제합니다.")
     public ResponseEntity<Void> toggleBookmark(
-            @PathVariable(name = "shopId") Long ShopId,
+            @PathVariable(name = "shopId") Long shopId,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
         Long userId = principalDetails.getUserId();
 
-        shopBookmarkService.toggleBookmark(userId, ShopId);
+        shopBookmarkService.toggleBookmark(userId, shopId);
 
         return ResponseEntity.ok().build();
     }
