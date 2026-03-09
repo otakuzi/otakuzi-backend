@@ -1,5 +1,6 @@
 package com.otakuzi.backend.mapper.shop;
 
+import com.otakuzi.backend.dto.shop.ShopBookmarkResponse;
 import com.otakuzi.backend.dto.shop.ShopCategoryResponse;
 import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.entity.Shop;
@@ -21,4 +22,9 @@ public interface ShopMapper {
     ShopResponse toResponse(Shop shop);
 
     List<ShopResponse> toResponseList(List<Shop> shops);
+
+    @Mapping(source = "id", target = "shopId")
+    @Mapping(source = "name", target = "shopName")
+    @Mapping(source = "addressName", target = "address")
+    ShopBookmarkResponse toBookmarkResponse(Shop shop);
 }

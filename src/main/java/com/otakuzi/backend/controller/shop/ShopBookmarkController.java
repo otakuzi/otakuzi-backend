@@ -20,7 +20,7 @@ public class ShopBookmarkController {
 
     private final ShopBookmarkService shopBookmarkService;
 
-    @PostMapping("{shopId}/bookmarks")
+    @PostMapping("/{shopId}/bookmarks")
     @Operation(summary = "매장 북마크 토글", description = "즐겨찾기를 없으면 추가, 있으면 삭제합니다.")
     public ResponseEntity<Void> toggleBookmark(
             @PathVariable(name = "shopId") Long shopId,

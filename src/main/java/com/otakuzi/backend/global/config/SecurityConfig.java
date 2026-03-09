@@ -76,7 +76,8 @@ public class SecurityConfig {
         CorsConfiguration adminConfig = new CorsConfiguration();
         adminConfig.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",       // 로컬 프론트
-                "https://dev.otakuim.com"      // 개발 서버 프론트
+                "https://dev.otakuim.com",      // 개발 서버 프론트
+                "https://dev-api.otakuim.com"
         ));
         adminConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         adminConfig.setAllowedHeaders(Arrays.asList("*"));
@@ -95,7 +96,8 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "https://otakuim.com",          // 운영 서버 허용
                 "https://www.otakuim.com",
-                "https://dev.otakuim.com"
+                "https://dev.otakuim.com",
+                "https://dev-api.otakuim.com"
         ));
         publicConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         publicConfig.setAllowedHeaders(Arrays.asList("*"));
