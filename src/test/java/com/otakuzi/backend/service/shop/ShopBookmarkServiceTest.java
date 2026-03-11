@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -84,22 +85,17 @@ class ShopBookmarkServiceTest extends BaseServiceTest {
     @Test
     @DisplayName("유저 ID로 내 북마크 목록을 조회하면 DTO 리스트로 반환된다")
     void getMyBookmarks() {
-        // ==========================================
-        // [1] given: 부모가 준 헬퍼 메서드로 1초 만에 데이터 세팅 완료
-        // ==========================================
+
         Long userId = 1L;
 
-        // 1-1. 코드가 미치도록 깔끔해졌습니다!
         User user = createMockUser(userId, "테스트유저");
         Shop shop = createMockShop(10L, "홍대 굿즈샵", "홍대");
 
         ShopBookmark bookmark = new ShopBookmark(user, shop);
 
-        // 1-2. 가짜 레포지토리 지시
         given(shopBookmarkRepository.findAllByUserId(userId))
                 .willReturn(List.of(bookmark));
 
-        // 1-3. 가짜 매퍼 지시
         ShopBookmarkResponse mockResponse = ShopBookmarkResponse.builder()
                 .shopId(10L)
                 .shopName("홍대 굿즈샵")
@@ -107,15 +103,8 @@ class ShopBookmarkServiceTest extends BaseServiceTest {
                 .build();
         given(shopMapper.toBookmarkResponse(shop)).willReturn(mockResponse);
 
-        // ==========================================
-        // [2] when: 실제 서비스 로직 실행
-        // ==========================================
-        // 🚨 [TDD] 여전히 이 부분에 '빨간 줄'이 떠 있어야 정상입니다.
         List<ShopBookmarkResponse> responses = shopBookmarkService.getMyBookmarks(userId);
 
-        // ==========================================
-        // [3] then: 검증
-        // ==========================================
         assertThat(responses).hasSize(1);
         assertThat(responses.get(0).getShopName()).isEqualTo("홍대 굿즈샵");
     }
