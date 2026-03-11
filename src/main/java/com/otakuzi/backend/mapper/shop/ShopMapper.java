@@ -26,5 +26,6 @@ public interface ShopMapper {
     @Mapping(source = "id", target = "shopId")
     @Mapping(source = "name", target = "shopName")
     @Mapping(source = "addressName", target = "address")
+    @Mapping(source = "shopCategoryMaps", target = "categories")
     ShopBookmarkResponse toBookmarkResponse(Shop shop);
 }

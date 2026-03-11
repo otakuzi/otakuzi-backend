@@ -1,8 +1,10 @@
 package com.otakuzi.backend.service.shop;
 
+import com.otakuzi.backend.dto.shop.ShopBookmarkResponse;
 import com.otakuzi.backend.entity.Shop;
 import com.otakuzi.backend.entity.ShopBookmark;
 import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.mapper.shop.ShopMapper;
 import com.otakuzi.backend.repository.ShopBookmarkRepository;
 import com.otakuzi.backend.repository.ShopRepository;
 import com.otakuzi.backend.repository.UserRepository;
@@ -10,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,17 @@ public class ShopBookmarkService {
     private final ShopBookmarkRepository shopBookmarkRepository;
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
+    private final ShopMapper shopMapper;
+
+    public List<ShopBookmarkResponse> getMyBookmarks(Long userId) {
+        List<ShopBookmark> bookmarks = shopBookmarkRepository.findAllByUserId(userId);
+
+        return bookmarks.stream()
+                .map(bookmark -> {
+                    return shopMapper.toBookmarkResponse(bookmark.getShop());
+                })
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public void toggleBookmark(Long userId, Long shopId) {
