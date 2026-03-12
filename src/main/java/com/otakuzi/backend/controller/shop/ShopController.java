@@ -1,5 +1,6 @@
 package com.otakuzi.backend.controller.shop;
 
+import com.otakuzi.backend.dto.shop.ShopCategoryResponse;
 import com.otakuzi.backend.dto.shop.ShopResponse;
 import com.otakuzi.backend.service.shop.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,5 +32,11 @@ public class ShopController {
     ) {
         List<ShopResponse> shops = shopService.searchShops(name, categories);
         return ResponseEntity.ok(shops);
+    }
+
+    @GetMapping("/categories")
+    @Operation(summary = "카테고리 조회", description = "모든 매장 카테고리를 조회합니다.")
+    public ResponseEntity<List<ShopCategoryResponse>> getCategories() {
+        return ResponseEntity.ok(shopService.getAllCategories());
     }
 }
