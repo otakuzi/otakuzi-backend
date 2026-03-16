@@ -1,4 +1,4 @@
-package com.otakuzi.backend.entity;
+package com.otakuzi.backend.entity.user;
 
 import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.entity.common.BaseTime;

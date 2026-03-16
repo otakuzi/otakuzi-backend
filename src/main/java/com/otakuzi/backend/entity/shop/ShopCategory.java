@@ -1,4 +1,4 @@
-package com.otakuzi.backend.entity;
+package com.otakuzi.backend.entity.shop;
 
 import jakarta.persistence.*;
 import lombok.Getter;

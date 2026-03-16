@@ -1,7 +1,7 @@
-package com.otakuzi.backend.repository;
+package com.otakuzi.backend.repository.user;
 
 import com.otakuzi.backend.global.constant.UserType;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package com.otakuzi.backend.controller.user;
 import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.service.user.AdminUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

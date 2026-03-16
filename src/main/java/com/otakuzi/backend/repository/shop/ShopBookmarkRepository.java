@@ -1,8 +1,8 @@
-package com.otakuzi.backend.repository;
+package com.otakuzi.backend.repository.shop;
 
-import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.ShopBookmark;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.shop.ShopBookmark;
+import com.otakuzi.backend.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

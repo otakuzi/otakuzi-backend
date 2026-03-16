@@ -1,4 +1,4 @@
-package com.otakuzi.backend.entity;
+package com.otakuzi.backend.entity.auth;
 
 import jakarta.persistence.*;
 import lombok.Builder;

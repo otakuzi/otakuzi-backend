@@ -1,6 +1,6 @@
-package com.otakuzi.backend.repository;
+package com.otakuzi.backend.repository.shop;
 
-import com.otakuzi.backend.entity.Shop;
+import com.otakuzi.backend.entity.shop.Shop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

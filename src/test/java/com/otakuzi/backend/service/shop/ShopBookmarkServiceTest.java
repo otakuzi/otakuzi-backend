@@ -1,20 +1,18 @@
 package com.otakuzi.backend.service.shop;
 
 import com.otakuzi.backend.dto.shop.ShopBookmarkResponse;
-import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.ShopBookmark;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.shop.ShopBookmark;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.base.BaseServiceTest;
 import com.otakuzi.backend.mapper.shop.ShopMapper;
-import com.otakuzi.backend.repository.ShopBookmarkRepository;
-import com.otakuzi.backend.repository.ShopRepository;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.shop.ShopBookmarkRepository;
+import com.otakuzi.backend.repository.shop.ShopRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,12 +1,12 @@
 package com.otakuzi.backend.service.shop;
 
 import com.otakuzi.backend.dto.shop.*;
-import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.ShopCategory;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.shop.ShopCategory;
 import com.otakuzi.backend.mapper.shop.ShopCategoryMapper;
 import com.otakuzi.backend.mapper.shop.ShopMapper;
-import com.otakuzi.backend.repository.ShopCategoryRepository;
-import com.otakuzi.backend.repository.ShopRepository;
+import com.otakuzi.backend.repository.shop.ShopCategoryRepository;
+import com.otakuzi.backend.repository.shop.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

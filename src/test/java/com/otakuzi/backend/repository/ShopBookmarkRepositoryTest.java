@@ -1,17 +1,17 @@
 package com.otakuzi.backend.repository;
 
-import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.ShopBookmark;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.shop.ShopBookmark;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.base.BaseRepositoryTest;
 import com.otakuzi.backend.global.constant.UserType;
+import com.otakuzi.backend.repository.shop.ShopBookmarkRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -1,6 +1,6 @@
 package com.otakuzi.backend.global.config.auth;
 
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

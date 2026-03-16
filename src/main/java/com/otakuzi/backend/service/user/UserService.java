@@ -1,9 +1,9 @@
 package com.otakuzi.backend.service.user;
 
 import com.otakuzi.backend.dto.user.UserResponse;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.mapper.user.UserMapper;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import com.otakuzi.backend.global.util.BadWordValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

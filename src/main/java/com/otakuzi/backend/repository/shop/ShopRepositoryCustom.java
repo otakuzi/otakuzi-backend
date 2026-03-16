@@ -1,6 +1,6 @@
-package com.otakuzi.backend.repository;
+package com.otakuzi.backend.repository.shop;
 
-import com.otakuzi.backend.entity.Shop;
+import com.otakuzi.backend.entity.shop.Shop;
 
 import java.util.List;
 

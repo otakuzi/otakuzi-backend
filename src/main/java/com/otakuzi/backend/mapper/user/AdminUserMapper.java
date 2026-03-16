@@ -2,7 +2,7 @@ package com.otakuzi.backend.mapper.user;
 
 import com.otakuzi.backend.dto.user.AdminUserResponse;
 import com.otakuzi.backend.dto.user.AdminUserUpdateRequest;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import org.mapstruct.*;
 
 import java.util.List;

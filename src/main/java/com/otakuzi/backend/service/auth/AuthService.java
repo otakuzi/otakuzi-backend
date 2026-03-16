@@ -2,9 +2,9 @@ package com.otakuzi.backend.service.auth;
 
 import com.otakuzi.backend.dto.auth.OAuth2UserInfo;
 import com.otakuzi.backend.dto.auth.TokenDto;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.jwt.JwtTokenProvider;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import com.otakuzi.backend.global.constant.UserType;
 import com.otakuzi.backend.dto.auth.KakaoTokenResponse;
 import com.otakuzi.backend.dto.auth.KakaoUserInfo;

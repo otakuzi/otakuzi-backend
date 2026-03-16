@@ -1,10 +1,10 @@
 package com.otakuzi.backend.service.user;
 
 import com.otakuzi.backend.dto.user.UserResponse;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.util.BadWordValidator;
 import com.otakuzi.backend.mapper.user.UserMapper;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

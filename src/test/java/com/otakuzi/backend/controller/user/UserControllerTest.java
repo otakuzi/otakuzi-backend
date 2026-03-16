@@ -1,10 +1,10 @@
 package com.otakuzi.backend.controller.user;
 
 import com.otakuzi.backend.dto.user.UserResponse;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.config.auth.PrincipalDetails;
 import com.otakuzi.backend.global.jwt.JwtTokenProvider;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import com.otakuzi.backend.service.user.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

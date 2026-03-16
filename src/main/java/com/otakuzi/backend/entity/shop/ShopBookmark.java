@@ -1,5 +1,6 @@
-package com.otakuzi.backend.entity;
+package com.otakuzi.backend.entity.shop;
 
+import com.otakuzi.backend.entity.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

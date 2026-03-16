@@ -1,10 +1,10 @@
 package com.otakuzi.backend.global.base;
 
-import com.otakuzi.backend.entity.Shop;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.constant.UserType;
-import com.otakuzi.backend.repository.ShopRepository;
-import com.otakuzi.backend.repository.UserRepository;
+import com.otakuzi.backend.repository.shop.ShopRepository;
+import com.otakuzi.backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 

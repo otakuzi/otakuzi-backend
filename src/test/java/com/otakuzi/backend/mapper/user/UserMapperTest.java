@@ -1,7 +1,7 @@
 package com.otakuzi.backend.mapper.user;
 
 import com.otakuzi.backend.dto.user.UserResponse;
-import com.otakuzi.backend.entity.User;
+import com.otakuzi.backend.entity.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

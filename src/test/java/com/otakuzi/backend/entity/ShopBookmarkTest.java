@@ -1,6 +1,8 @@
 package com.otakuzi.backend.entity;
 
-import org.assertj.core.api.Assertions;
+import com.otakuzi.backend.entity.shop.Shop;
+import com.otakuzi.backend.entity.shop.ShopBookmark;
+import com.otakuzi.backend.entity.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
