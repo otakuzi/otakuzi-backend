@@ -1,8 +1,10 @@
 package com.otakuzi.backend.global.base;
 
+import com.otakuzi.backend.entity.community.CommunityPost;
 import com.otakuzi.backend.entity.shop.Shop;
 import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.constant.UserType;
+import com.otakuzi.backend.repository.community.CommunityPostRepository;
 import com.otakuzi.backend.repository.shop.ShopRepository;
 import com.otakuzi.backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public abstract class BaseRepositoryTest {
     @Autowired
     protected ShopRepository shopRepository;
 
+    @Autowired
+    protected CommunityPostRepository communityPostRepository;
+
     protected User createAndSaveUser(String nickname, String email, UserType type) {
         User user = User.builder()
                 .nickname(nickname)
@@ -30,12 +35,38 @@ public abstract class BaseRepositoryTest {
 
     protected Shop createAndSaveShop(String name, String addressName) {
         Shop shop = Shop.builder()
+                .name(name)
                 .addressName(addressName)
-                .x("126.9242") // 테스트용 임의의 X 좌표
-                .y("37.5556")  // 테스트용 임의의 Y 좌표
+                .x("126.9242")
+                .y("37.5556")
                 .build();
-        shop.setName(name); // 기존에 Setter로 이름을 넣으셨던 방식 그대로!
 
-        return shopRepository.save(shop); // 만들자마자 DB에 쏙!
+        return shopRepository.save(shop);
+    }
+
+    // 제목, 내용, 카테고리 없는 생성 테스트
+    protected CommunityPost createAndSaveCommunityPost(Long userId, Integer categoryId) {
+        CommunityPost communityPost = CommunityPost.builder()
+                .title("오타쿠지 짱")
+                .content("오타쿠지 미쳤는데요?(P)")
+                .userId(userId)
+                .categoryId(categoryId)
+                .isDeleted(false)
+                .build();
+
+        return communityPostRepository.save(communityPost);
+    }
+
+    // 제목, 내용, 카테고리 생성 테스트
+    protected CommunityPost createAndSaveCommunityPost(Long userId, Integer categoryId, String title, String content) {
+        CommunityPost communityPost = CommunityPost.builder()
+                .title(title)
+                .content(content)
+                .userId(userId)
+                .categoryId(categoryId)
+                .isDeleted(false)
+                .build();
+
+        return communityPostRepository.save(communityPost);
     }
 }

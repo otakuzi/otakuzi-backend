@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface CommunityPostRepository extends JpaRepository<CommunityPost, Long>, CommunityPostRepositoryCustom {
 
-    List<CommunityPost> findByTitleContaining(String title);
 }
