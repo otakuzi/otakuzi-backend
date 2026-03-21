@@ -1,11 +1,10 @@
-package com.otakuzi.backend.repository;
+package com.otakuzi.backend.repository.shop;
 
 import com.otakuzi.backend.entity.shop.Shop;
 import com.otakuzi.backend.entity.shop.ShopBookmark;
 import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.base.BaseRepositoryTest;
 import com.otakuzi.backend.global.constant.UserType;
-import com.otakuzi.backend.repository.shop.ShopBookmarkRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -43,10 +42,8 @@ class ShopBookmarkRepositoryTest extends BaseRepositoryTest {
     void saveAndFindBookmark() {
 
         User user = createAndSaveUser("저장 테스트 유저", "save@otakuzi.com", UserType.USER);
-        userRepository.save(user);
 
         Shop shop = createAndSaveShop("저장 테스트 샵", "여기저기어딘가");
-        shopRepository.save(shop);
 
         ShopBookmark bookmark = new ShopBookmark(user, shop);
         ShopBookmark savedBookmark = shopBookmarkRepository.save(bookmark);
@@ -63,10 +60,8 @@ class ShopBookmarkRepositoryTest extends BaseRepositoryTest {
     void deleteBookmark() {
 
         User user = createAndSaveUser("삭제 테스트 유저", "delete@otakuzi.com", UserType.USER);
-        userRepository.save(user);
 
         Shop shop = createAndSaveShop("삭제 테스트 샵", "여기저기어딘가");
-        shopRepository.save(shop);
 
         ShopBookmark bookmark = new ShopBookmark(user, shop);
         shopBookmarkRepository.save(bookmark);
@@ -84,11 +79,7 @@ class ShopBookmarkRepositoryTest extends BaseRepositoryTest {
 
         User user = createAndSaveUser("중복 테스트 유저", "duplicate@otakuzi.com", UserType.USER);
 
-        userRepository.save(user);
-
         Shop shop = createAndSaveShop("중복 테스트 샵", "여기저기 어딘가");
-
-        shopRepository.save(shop);
 
         shopBookmarkRepository.save(new ShopBookmark(user, shop));
 
