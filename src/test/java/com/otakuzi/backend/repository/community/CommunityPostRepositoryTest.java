@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CommunityPostRepositoryTest extends BaseRepositoryTest {
 
