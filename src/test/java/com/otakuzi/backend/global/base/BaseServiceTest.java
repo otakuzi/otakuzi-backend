@@ -1,5 +1,6 @@
 package com.otakuzi.backend.global.base;
 
+import com.otakuzi.backend.entity.community.CommunityPost;
 import com.otakuzi.backend.entity.shop.Shop;
 import com.otakuzi.backend.entity.user.User;
 import com.otakuzi.backend.global.constant.UserType;
@@ -35,5 +36,17 @@ public abstract class BaseServiceTest {
 
         ReflectionTestUtils.setField(shop, "id", id);
         return shop;
+    }
+
+    protected CommunityPost createMockPost(Long id, Long userId, String title, String content, Integer categoryId) {
+        CommunityPost post = CommunityPost.builder()
+                .categoryId(categoryId)
+                .title(title)
+                .content(content)
+                .userId(userId)
+                .build();
+
+        ReflectionTestUtils.setField(post, "id", id);
+        return post;
     }
 }
