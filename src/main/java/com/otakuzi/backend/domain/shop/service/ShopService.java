@@ -1,0 +1,59 @@
+package com.otakuzi.backend.domain.shop.service;
+
+import com.otakuzi.backend.domain.shop.dto.ShopCategoryResponse;
+import com.otakuzi.backend.domain.shop.dto.ShopResponse;
+import com.otakuzi.backend.domain.shop.entity.Shop;
+import com.otakuzi.backend.domain.shop.entity.ShopCategory;
+import com.otakuzi.backend.domain.shop.mapper.ShopCategoryMapper;
+import com.otakuzi.backend.domain.shop.mapper.ShopMapper;
+import com.otakuzi.backend.domain.shop.repository.ShopCategoryRepository;
+import com.otakuzi.backend.domain.shop.repository.ShopRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class ShopService {
+
+    private final ShopRepository shopRepository;
+    private final ShopCategoryRepository shopCategoryRepository;
+    private final ShopMapper shopMapper;
+    private final ShopCategoryMapper shopCategoryMapper;
+
+    public List<ShopResponse> searchShops(String name, List<String> categories) {
+
+        if (categories != null && categories.isEmpty()) {
+            categories = null;
+        }
+
+        List<Shop> shops = shopRepository.searchByFilters(name, categories);
+
+        return shopMapper.toResponseList(shops);
+    }
+
+    @Cacheable(value = "categories")
+    public List<ShopCategoryResponse> getAllCategories() {
+        List<ShopCategory> categories = shopCategoryRepository.findAll();
+
+        return shopCategoryMapper.toResponseList(categories);
+    }
+
+    private void connectCategories(Shop shop, List<Long> categoryIds) {
+        if (categoryIds == null || categoryIds.isEmpty()) return;
+
+        List<ShopCategory> categories = shopCategoryRepository.findAllById(categoryIds);
+
+        if (categories.size() != categoryIds.size()) {
+            throw new IllegalArgumentException("존재하지 않는 카테고리가 포함되어 있습니다.");
+        }
+
+        for (ShopCategory category : categories) {
+            shop.addCategory(category);
+        }
+    }
+}

@@ -2,7 +2,7 @@ package com.otakuzi.backend.global.base;
 
 import com.otakuzi.backend.global.jwt.JwtFilter;
 import com.otakuzi.backend.global.jwt.JwtTokenProvider;
-import com.otakuzi.backend.repository.user.UserRepository;
+import com.otakuzi.backend.domain.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

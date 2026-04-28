@@ -1,6 +1,6 @@
 package com.otakuzi.backend.global.jwt;
 
-import com.otakuzi.backend.dto.auth.TokenDto;
+import com.otakuzi.backend.domain.auth.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

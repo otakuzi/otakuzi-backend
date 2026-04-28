@@ -1,6 +1,6 @@
 package com.otakuzi.backend.global.annotation;
 
-import com.otakuzi.backend.entity.user.User;
+import com.otakuzi.backend.domain.user.entity.User;
 import com.otakuzi.backend.global.config.auth.PrincipalDetails;
 import com.otakuzi.backend.global.constant.UserType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

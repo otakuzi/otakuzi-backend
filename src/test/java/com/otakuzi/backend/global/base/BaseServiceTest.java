@@ -1,8 +1,8 @@
 package com.otakuzi.backend.global.base;
 
-import com.otakuzi.backend.entity.community.CommunityPost;
-import com.otakuzi.backend.entity.shop.Shop;
-import com.otakuzi.backend.entity.user.User;
+import com.otakuzi.backend.domain.community.entity.CommunityPost;
+import com.otakuzi.backend.domain.shop.entity.Shop;
+import com.otakuzi.backend.domain.user.entity.User;
 import com.otakuzi.backend.global.constant.UserType;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

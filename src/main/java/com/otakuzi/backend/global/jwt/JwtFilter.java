@@ -1,8 +1,8 @@
 package com.otakuzi.backend.global.jwt;
 
 import com.otakuzi.backend.global.config.auth.PrincipalDetails;
-import com.otakuzi.backend.entity.user.User;
-import com.otakuzi.backend.repository.user.UserRepository;
+import com.otakuzi.backend.domain.user.entity.User;
+import com.otakuzi.backend.domain.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
